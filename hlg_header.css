@@ -1,0 +1,802 @@
+:root{
+ --margin:6vw;
+ --margin_val:80px;
+ --width:calc(100vw - 2 * var(--margin));
+ --grid0_height:5vh;
+ --grid1_height:12vh;
+ --grid2_height:5vh; 
+ --grid3_height:4vh;
+ --tag_height:3vh;
+ --tag_width:6vw;
+ --menu_width:52vw;
+ --menu_height:3vh;
+ --pad_color:#ff840e;
+ }
+body {
+　overflow-y: scroll;
+　overflow-x: hidden;
+}
+.image_width_16px
+{
+   width:1vw;
+}
+
+.button_style1{
+  position:fixed;
+  font-weight:bold;
+  font-size:20px;
+  color:red;
+  background-color:#BBBBBB;
+  width:130px;
+  height:30px;  
+  top:0px;
+  left:14px;
+  }
+.button_style2{
+  position:fixed;
+  font-weight:bold;
+  font-size:20px;
+  color:red;
+  background-color:#BBBBBB;
+  width:140px;
+  height:30px;  
+  top:0px;
+  left:160px;
+  
+  }
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+#grid0
+{
+	position:fixed;    
+	top:0px;
+	left:var(--margin);		
+	height:var(--grid0_height);	
+    font-size:2vh;
+	color:#ffffff;
+    width: var(--width); 	
+	background-color:#eb5054;
+	z-index:9;
+}
+
+#grid01
+{
+	position:absolute;
+    top:1vh;
+	left:3vw;
+}
+#grid02
+{
+	position:absolute;
+    top:5px;
+	left:calc(var(--width) - 22vw);
+}
+
+#member
+{
+	position:fixed;    
+	top:3px;
+	left:82vw;		
+	height:4vh;
+	z-index:9;
+}
+
+#grid1
+{
+	position:fixed;    
+	top:var(--grid0_height);	
+	left:var(--margin);		
+	height:var(--grid1_height);		
+    font-size:2vh;
+    width: var(--width);	
+	background-color:#fbf9e4;
+	z-index:9;
+}
+#grid11
+{
+	position:absolute;
+    top:2px;
+	left:3vw;
+}
+
+
+
+#grid12
+{
+	position:absolute;
+    top:20px;
+	left:calc(var(--width) / 5 );
+}
+#grid13
+{
+	position:absolute;
+    top:5px;
+	left:calc(var(--width) -  30vw);
+}
+
+#grid2
+{
+	position:fixed;    
+	top:calc(var(--grid0_height) + var(--grid1_height));	
+	left:var(--margin);		
+	height:var(--grid2_height);		
+    font-size:2vh;
+    width: var(--width);	
+	background-color:#fbf900;
+	z-index:9;
+}
+
+#grid3
+{
+	position:fixed;
+    overflow: hidden;    
+	top:calc(var(--grid0_height) + var(--grid1_height) + var(--grid2_height));	
+	left:var(--margin);		
+	height:var(--grid3_height);	
+    font-size:2vh;
+	color:#ffffff;
+    width: var(--width);	
+	background-color:var(--pad_color);
+	z-index:8;
+}
+#grid31
+{ 
+	position:absolute;
+    top:0px;
+	left:3vw;
+}
+#grid32
+{
+	position:absolute;
+    top:8px;
+	left:calc(var(--width) / 3);
+}
+#grid33
+{
+	position:absolute;
+    top:3px;
+	left:5px;
+	color:#1e1446;
+	font-size:16px;
+}
+
+#grid017
+{
+	position:fixed;    
+	top:260px;
+	left:calc(var(--margin) + var(--width)  + 1vw);		
+	height:100px;
+    width:40px;	
+	background-color:rgb(0,0,0,0);
+	visibility : hidden;
+	z-index:9;
+}
+#grid018
+{
+	position:fixed;    
+	top:6vh;
+	left:calc(var(--margin) + 53vw );		
+	height:70px;
+    width:70px;
+	background-color:rgb(0,0,0,0);
+	z-index:9;
+}
+
+#grid019
+{
+	position:fixed;    
+	top:5vh;
+	left:calc(var(--margin) + 60vw );		
+	height:60px;	
+    font-size:3vh;
+    width:60px;
+	background-color:rgb(0,0,0,0);
+	z-index:9;
+}
+
+#sub_block1{
+  position:fixed;
+  margin:0px;
+  border:0px;
+  padding:0px; 
+  top:0px;
+  left:60%;  
+}
+#priv_block1
+{
+	position:fixed; 
+	top:12%;
+    left:10px;
+    width:1024px;
+    height:10%;
+	z-index:3;	
+    background-color:#fffffe;
+	z-index:2;
+    display:block
+}       
+#priv_block2
+{
+	position:absolute;
+  margin:0px;
+  border:0px;
+  padding:0px; 
+  top:calc(var(--grid0_height) + var(--grid1_height) + var(--grid2_height) + 5vh );
+  left:var(--margin_val);
+    width: var(--width);
+height:200vh; 	
+	background-color:#ffcccc;
+   font-size:16px;
+  
+	z-index:1;
+} 
+#priv_block21
+{
+	position:absolute;
+  margin:0px;
+  border:0px;
+  padding:0px; 
+  top:calc(var(--grid0_height) + var(--grid1_height) + var(--grid2_height)  + 5vh );
+  left:var(--margin);
+    width: var(--width); 	
+	background-color:#ccffe6;
+   font-size:16px;
+  
+	z-index:1;
+} 
+	
+#priv_block3
+	{
+	  position:absolute;	
+	  top:28%;
+	  left:53%;
+	  height:60%;	
+	  width:40%;
+	  background-color:#fffffe;
+	  display:none;
+	  z-index:1
+	}	
+	#f_pic_block_head
+	{
+	    position:absolute;    
+		  top:0px;             
+	    left:1200px
+	}			      	 
+	#f_pic_block_body
+	{
+	    position:absolute;    
+	  	top:360px;             
+	    left:560px
+	} 
+    
+	#car1
+	{
+	  position:fixed;
+		top:36vh; 
+    left:20vw;
+    width:60vw;
+    height:60vh;  
+    background-color:#EBEBEB;  
+		display:none;
+		overflow: scroll;
+		z-index:9;
+  }   
+   
+  #block1{
+  position:fixed; 
+  margin:0px;
+  border:0px;
+  padding:0px; 
+  top:calc(var(--grid0_height) + var(--grid1_height)  + var(--grid2_height)  + 5vh );
+  left:0px;
+  width:100vw;
+  height:6vh;
+  font-size:20px;
+  background-color:#EBEBEB;
+  z-index:2;
+   display:block
+}
+
+#back1
+{
+  position:fixed;
+  top:0px;
+  left:0px; 
+  width:100vw;
+  height:calc(var(--grid0_height) + var(--grid1_height) + var(--grid2_height) );  
+  background-color:#ffffff;
+  z-index:8;
+} 
+
+
+#result{
+	 position:absolute;
+	z-index:-1;
+	left:0px;
+}
+
+.logo{
+   height:12vh;
+}
+.search{
+   width:20vw;
+}
+.font_style
+{
+	position:absolute;
+    top:5px;
+	left:15px;
+	font-size:20px;
+	color:red;
+}
+.font_style1
+{
+   font-size: 240%;
+   color: #ffffff;
+}
+.font_style2
+{
+   font-size: 150%;
+   color: #006600;
+}
+
+.marquee
+{
+	font-size: 24px;
+	font-family:微軟正黑體;
+}
+/* 靠右下拉式選單的 css
+position:absolute :以所在方塊 為基準
+position:relative :在同一方塊內相對之前一個元素的距離
+*/
+
+.menu_2{ /* 下拉式選單的5主框 css*/
+position:fixed;
+    font-size:2vh;
+	margin-left:0;
+	margin-right:0;
+	margin-top:0;
+	margin-bottom:0;	
+	top:calc(22vh + 5px);
+	left:calc(var(--margin) + 28vw);	
+	width:var(--menu_width);
+	height:var(--menu_height);		
+	z-index:11;
+	background-color:var(--pad_color); 
+	}
+/*	top:expression(document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2-60); 
+
+ 定義子選單的框框樣式*/
+.menu_2 a{                /*超連結的樣式*/
+    color:#ffffff;
+    background-color:var(--pad_color);  
+	border:solid 1px navy;
+	text-decoration:none;
+	display:block;
+	width:13em;
+	line-width:2em; /*下拉式的寬度	*/
+	height:1.6em;
+	
+}
+.menu_2 a:hover{               /*滑鼠滑過*/
+ 
+  color:#ffffff;
+}
+.menu_2 span{	
+	color:#c5e1ed;
+	display:none;
+}
+.menuhead_2{
+	border-right:solid 1px #ffffff;
+}
+
+/* 定義分組選單 在主選單的位置與高度(會影響滑鼠的感應)*/
+#menu1_2{
+	position:absolute;
+	top:0;
+	left:0;
+	height:var(--tag_height);
+	width:var(--tag_width);	
+	text-decoration:none;
+	
+}
+/*此處的 menu1 沒有下拉選單,在主選單即是超連結 因此須特別定義*/ 
+#menu1_2 a{       /*超連結的樣式*/
+    color:#000000;
+	background-color:var(--pad_color); 	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;	
+	height:var(--tag_height);
+}
+#menu1_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);	
+  color:#ffffff;
+  background-image: url("holygo/png/90.png");  
+  height:var(--tag_height);
+ 
+}
+#menu2_2{
+	position:absolute;
+	top:0;
+	left:var(--tag_width);
+	height:var(--tag_height);
+	width:var(--tag_width);
+    
+}
+#menu2_2 a{       /*超連結的樣式*/
+    color:#000000;
+	background-color:var(--pad_color); 	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;
+	height:var(--tag_height);
+}
+#menu2_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+  background-image: url("holygo/png/90.png");  
+  height:var(--tag_height);
+ 
+}
+
+#menu3_2{
+	position:absolute;
+	top:0;
+	left:calc(var(--tag_width) * 2);
+	height:var(--tag_height);
+	width:var(--tag_width);
+    
+}
+#menu3_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:var(--pad_color); 	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;
+	height:var(--tag_height);
+	
+}
+#menu3_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0); 
+  color:#ffffff;
+  background-image: url("holygo/png/90.png");  
+  height:var(--tag_height);
+}
+
+#menu4_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 3);
+	top:0;
+	height:var(--tag_height);
+	width:var(--tag_width);	
+	
+}
+#menu4_2 a{       /*超連結的樣式*/
+    color:#000000;
+	background-color:var(--pad_color); 
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	height:var(--tag_height);
+	line-width:0;
+	
+}
+#menu4_2 a:hover{  /*滑鼠滑過*/
+ background-color:rgb(0,0,0,0); 
+ color:#ffffff;
+ background-image: url("holygo/png/90.png");  
+  height:var(--tag_height);
+}
+
+#menu5_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 4);
+	top:0;
+	height:var(--tag_height);
+	width:var(--tag_width);		
+}
+#menu5_2 a{       /*超連結的樣式*/
+    color:#000000;
+	background-color:var(--pad_color); 
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	height:var(--tag_height);
+	line-width:0;
+	
+}
+#menu5_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);	
+  color:#ffffff;
+  background-image: url("holygo/png/90.png");
+  height:var(--tag_height);
+}
+
+#menu6_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 5);
+	top:0;
+	height:var(--tag_height);
+	width:var(--tag_width);	
+}
+#menu6_2 a{       /*超連結的樣式*/
+    color:#000000;
+	background-color:var(--pad_color); 
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	height:var(--tag_height);
+	line-width:0;
+	
+}
+#menu6_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+ background-image: url("holygo/png/90.png");
+  height:var(--tag_height);
+}
+
+#menu7_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 6);
+	top:0;
+	height:var(--tag_height);
+	width:var(--tag_width);	
+}
+#menu7_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:var(--pad_color); 
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	height:var(--tag_height);
+	line-width:0;
+	
+}
+#menu7_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);		
+  color:#ffffff;
+  background-image: url("holygo/png/90.png");
+    height:var(--tag_height);
+}
+
+
+
+#menu8_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 7);
+	top:0;
+	height:var(--tag_height);
+	width:var(--tag_width);	
+}
+#menu8_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:var(--pad_color); 
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	height:var(--tag_height);
+	line-width:0;
+	
+}
+#menu8_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);	
+  color:#ffffff;
+  background-image: url("holygo/png/90.png");  
+  height:var(--tag_height);
+}
+
+#menu9_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 8);
+	top:0;
+	height:var(--tag_height);
+	width:var(--tag_width);	
+}
+#menu9_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:var(--pad_color); 
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	height:var(--tag_height);
+	line-width:0;
+	
+}
+#menu9_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+  background-image: url("holygo/png/90.png");  
+    height:var(--tag_height);
+}
+
+#menu10_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 9);
+	top:0;
+	height:var(--tag_height);
+	width:var(--tag_width);	
+}
+#menu10_2 a{       /*超連結的樣式*/
+ color:#000000;
+	background-color:var(--pad_color); 
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	height:var(--tag_height);
+	line-width:0;
+}
+#menu10_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+   background-image: url("holygo/png/90.png");  
+    height:var(--tag_height);
+}
+
+#menu11_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 10);
+	top:0;
+	height:1.6em;
+	width:var(--tag_width);	
+}
+#menu11_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:#f1f2f3;	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;
+	
+}
+#menu11_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+   background-image: url("holygo/png/90.png");  
+    height:var(--tag_height);
+}
+
+#menu12_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 11);
+	top:0;
+	height:1.6em;
+	width:var(--tag_width);	
+	text-decoration:none;
+}
+#menu12_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:#f1f2f3;	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;
+	
+}
+#menu12_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+   background-image: url("holygo/png/90.png");  
+    height:var(--tag_height);
+}
+#menu13_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 12);
+	top:0;
+	height:1.6em;
+	width:var(--tag_width);	
+	text-decoration:none;
+}
+#menu13_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:#f1f2f3;	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;
+	
+}
+#menu13_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+   background-image: url("holygo/png/90.png");  
+    height:var(--tag_height);
+}
+
+#menu14_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 13);
+	top:0;
+	height:1.6em;
+	width:var(--tag_width);	
+	text-decoration:none;
+}
+
+#menu14_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:#f1f2f3;	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;
+	
+}
+#menu14_2 a:hover{  /*滑鼠滑過*/
+  background-color:rgb(0,0,0,0);
+  color:#ffffff;
+   background-image: url("holygo/png/90.png");  
+    height:var(--tag_height);
+}
+
+#menu15_2{
+	position:absolute;
+	left:calc(var(--tag_width) * 14);
+	top:0;
+	height:1.6em;
+	width:var(--tag_width);	
+	text-decoration:none;
+}
+
+#menu15_2 a{       /*超連結的樣式*/
+  color:#000000;
+	background-color:#f1f2f3;	
+	border:none;	
+	display:block;
+	width:var(--tag_width);   /*下拉式的寬度	*/
+	line-width:0;
+	
+}
+#menu15_2 a:hover{  /*滑鼠滑過*/
+  background-color:#49abdb;	
+  color:#ffffff;
+   background-image: url("holygo/png/90.png");  
+    height:var(--tag_height);
+}
+
+
+
+
+/* 定義子選單的相對主選單的位置與寬度*/
+.submenu_2{
+	visibility:hidden;
+	position:absolute;
+    left:0px;
+    top:var(--tag_height);
+    width:var(--tag_width);  
+}
+/* 定義子選單的有超連結的樣式*/
+.submenu_2 a{
+	background-color:#f1f2f3;
+	border-top:solid 1px #ffffff;
+}
+
+.submenu1_2{
+	visibility:hidden;
+	position:absolute;
+    left:0px;
+    top:var(--tag_height);
+    width:var(--tag_width);  
+}
+.submenu1_2 a{
+	background-color:#f1f2f3;
+	border-top:solid 1px #ffffff;
+}
+
+.submenu2_2{
+	visibility:hidden;
+	position:absolute;
+    left:0px;
+    top:var(--tag_height);
+    width:var(--tag_width);   
+}
+.submenu2_2 a{
+	background-color:#f1f2f3;
+	border-top:solid 1px #ffffff;
+  
+}

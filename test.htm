@@ -1,0 +1,125 @@
+<html>
+<body>
+<table align="left" border=1   cellpadding="10" cellspacing="5" >
+			<tr>
+				<td align=middle width=200 >					
+					車輛性質
+				</td>				
+				<td align = "middle" colspan = 3>		
+					<input type="radio"  name="f_property" value=1>1.靠行&emsp;
+					<input type="radio"  name="f_property" value=2>2.貨運公司&emsp;
+					<input type="radio"  name="f_property" value=3>3.搬家公司					
+				</td>
+			</tr>
+			<tr>
+				<td align=middle>					
+					綁定電話
+				</td>				
+				<td align = "middle">		    
+					<input type="text" size=10 id=f_contact_number>
+				</td>				
+				<td align=middle  width=200px >綁定車牌號碼</td>
+				<td align = "middle" >
+					<input type="text" size=10 id=f_registration_number>
+				</td>
+			</tr>
+			<tr>
+				<td align=left>
+					重量限制(公斤)
+				</td>
+				<td align = "middle">				    
+					<input type=number  min=1 max=9000 size=2 id=f_weight>
+				</td>
+
+				<td align=left>
+					長度限制(公分)
+				</td>
+				<td align = "middle">				    
+					<input type=number min=10 max=50000 id=f_length>
+				</td>
+			</tr>
+			
+			<tr> 			
+				<td align=left>
+					寬度限制(公分)
+				</td>
+				<td align = "middle">				    
+					<input type=number min=10 max=50000 id=f_width>
+				</td>
+				<td align=left>
+					高度限制(公分)
+				</td>
+				<td align = "middle">				    
+					<input type=number min=10 max=50000 id=f_height>
+				</td>
+				
+			</tr>
+					
+			<tr>
+				<td colspan = "1" align = "center">
+					本車配備
+				</td>
+				<td colspan = "3">
+					<input type="checkbox" name=f_equitment value=1>司機協助手動搬運&emsp;
+					<input type="checkbox" name=f_equitment value=2>隨身助手&emsp;
+					<input type="checkbox" name=f_equitment value=3>低溫冷藏<br>
+					<input type="checkbox" name=f_equitment value=4>升降尾門&emsp;
+					<input type="checkbox" name=f_equitment value=5>可以推高機裝卸<br>
+					<input type="checkbox" name=f_equitment value=6>自備拖板車&emsp;
+					<input type="checkbox" name=f_equitment value=7>自備手推車&emsp;
+					<input type="checkbox" name=f_equitment value=8>提供吊桿
+				</td>
+			</tr>
+		</table>
+		<table  border=1  style=" height: 200px; width: 540px"  cellpadding="10" cellspacing="5" >
+			<tr>
+				<td align = "center" colspan = "4">
+					司機資料<input type="button"  value="照片上傳" onclick="pic_upload()"> 
+				</td>
+			</tr>
+			<tr>
+				<td align=middle  width=200px>車輛照片1</td>					        
+				<td><input type=file id="f_cargo_file1" name=1>
+					<img  width=80 id=f_cargo_pic1 onclick="enlarge(this)" onmouseout="small(this)">
+				 </td>
+				<td align=middle  width=200px>車輛照片2 </td>
+				<td><input type=file id="f_cargo_file2" name=2>
+					<img  width=80 id=f_cargo_pic2 onclick="enlarge(this)" onmouseout="small(this)">
+				</td>				
+			</tr>
+			<tr>
+				<td align=middle  width=200px>保險卡</td>					
+				<td><input type=file id="f_insurance_file" name=3 > 
+					<img  width=80 id=f_insurance onclick="enlarge(this)" onmouseout="small(this)">
+				</td>					
+				<td align=middle  width=200px>行車執照</td>
+				<td><input type=file id="f_vehicle_license_file" name=4> 
+					<img  width=80 id=f_vehicle_license onclick="enlarge(this)" onmouseout="small(this)">
+				</td>
+			</tr>				
+			<tr>
+				<td align=middle  width=200px>駕駛執照</td>
+				<td><input type=file id="f_driving_license_file" name=5> 
+					<img  width=80 id=f_driving_license onclick="enlarge(this)" onmouseout="small(this)">
+				</td>
+				<td align=middle  width=200px>身分證</td>
+				<td><input type=file id="f_ID_card_file"  name=6>
+					<img  width=80 id=f_ID_card onclick="enlarge(this)" onmouseout="small(this)">
+				</td>
+			</tr>			
+		
+			<tr>
+				<th colspan="2">
+					<input type="button" value="回上一頁" id=prev_step2  style="border:3px;background-color:#ffd87d;width:80px;height:25px">
+					
+						<input type="button" value="送出" id=close_act style="border:3px;background-color:#ffd87d;width:100px;height:25px">
+					
+				</th>
+			</tr>
+			
+											
+		</table>
+
+
+</body>
+</html>

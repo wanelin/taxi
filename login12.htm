@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
+<title>登入</title>
+<style type="text/css">
+
+#box1{
+	 position: absolute;
+   width:700px;
+   border:0px solid blue;
+   padding:10px;   
+  
+   top: 60px;
+   left:80px;
+   z-index:2;
+}
+#box2{
+	visibility:hidden;
+}
+#result{
+   position: absolute;
+   width:500px;
+   border:0px solid blue;
+   padding:10px;
+   
+   
+   top: 30px;
+   left:210px;
+   visibility:hidden;
+   z-index:3;
+}
+
+#flash{
+	position: absolute;
+	top: 0px;
+	left:0px;
+	z-index:1;
+}
+.fontstyle1
+{
+	font-size: 24px;
+	face:"華康皮皮體w5";
+ }
+.fontstyle2
+{
+	font-size: 24px;
+	face:"華康皮皮體w5";
+	color:#ffffff;
+ }
+ .fontstyle3
+{
+	font-size: 40px;
+ }
+</style> 
+<script src="jquery-2.0.3.js"></script>
+<script language="javascript">
+var sel_a=[];
+var sel=0;
+$(document).ready(function() 
+{
+	var f_user_id1;
+    var f_passwd1;
+	
+	var f_identity1;
+	var f_user_id2;     
+	var f_passwd2;      
+	var f_user_name2;   
+	var f_id2;          
+	var f_birthday2;    
+	var f_celephone2;   
+	var f_address2;     
+	var f_line_id2 ;    
+	var f_sug_user_id2; 
+	var f_email2;
+	var sel_type;
+    var out;
+	
+	function getdata()
+	{ 
+	   f_identity1		='1';	    
+	   f_email1        	=$('#f_email1').val();
+       f_passwd1 		=$('#f_passwd1').val(); //取得dom內 #f_passwd 的值	   
+	   f_user_id2     	=$('#f_user_id2').val();    
+	   f_passwd2      	=$('#f_passwd2').val();     
+	   f_user_name2   	=$('#f_user_name2').val();  
+	   f_id2          	=$('#f_id2').val();             
+	   f_birthday2    	=$('#f_birthday2').val();   
+	   f_celephone2   	=$('#f_celephone2').val();  
+	   f_address2     	=$('#f_address2').val();    
+	   f_line_id2     	=$('#f_line_id2').val();    
+	   f_sug_user_id2 	=$('#f_sug_user_id2').val();
+	   f_email2       	=$('#f_email2').val();
+	   
+	}
+	
+function ajax()
+	{
+	    
+		getdata();	
+	    $.post('login.php',
+        { 
+		  f_user_id1    :f_user_id1,
+		  f_email1		:f_email1,
+		  f_passwd1		:f_passwd1,		  
+		  f_user_id2    :f_user_id2,  
+		  f_passwd2     :f_passwd2,  
+		  f_user_name2  :f_user_name2,  
+		  f_id2         :f_id2,  
+		  f_birthday2   :f_birthday2,  
+		  f_celephone2  :f_celephone2,  
+		  f_address2    :f_address2,  
+		  f_line_id2    :f_line_id2,  
+		  f_sug_user_id2:f_sug_user_id2,
+		  f_email2      :f_email2, 
+		  f_identity1	:f_identity1,
+		  sel_type      :sel_type,
+          out 			:out 
+        },
+        function(data) 
+		{        //回傳資料
+		 // alert(sel_type);
+          switch(out)
+          {
+		    case '送出':
+			    alert($(data).find('pri_echo').text()); 
+                break;
+            case '登入':			    
+                pri_echo=$(data).find('pri_echo').text();	
+				up_line=$(data).find('up_line').text();	
+				down_line=$(data).find('down_line').text();					
+				f_cust_name=$(data).find('f_cust_name').text();
+						
+				if ( pri_echo == "n")
+				{
+				   sel_a[0]=" Email錯誤";
+					sel_a[1]=" Line錯誤";
+					sel_a[2]=" 手機號碼錯誤";
+				   
+				   alert("您還不是會員！  "+sel_a[sel]);
+				}
+				else
+				{
+				  switch(f_identity1)
+				  {
+				  case '1':
+				     history.go(-1);
+					
+					 break;
+				  case '2':			  
+						document.location.href="index2.php";
+					 break;
+				  case '3':
+						document.location.href="index3.php";
+					 break;
+				  }
+				}
+                break;
+           }
+        } 
+      );
+	}
+
+    $("#bnt4").submit( function() {
+	  msg="";
+	  str=$("#f_email1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg="帳號不能空白  ";
+	   }
+	  str=$("#f_passwd1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg+="密碼不能空白";
+	  }
+	  
+	  if(msg.length==0)
+      {
+		//item = $("input[@type=radio][@checked]").val();
+		
+			sel_type=$('input:radio:checked[name="radio_sel"]').val();
+			out = $('#out4').val();
+			//alert(f_identity1+" "+f_identity2);
+			ajax();
+     	} 
+		else
+		{
+		    alert(msg);
+		}
+	 
+      return false;
+    });
+    $("#bnt5").submit( function() {
+	  // result 要隱藏 result1 顯示	 
+	  $('#box1').css('visibility','hidden');
+	  $('#result').css('visibility','visible');	
+	  $('#f_passwd2').val('');
+	    
+	  return false;   
+    });
+    $("#bnt6").submit( function() {            
+      out = $('#out6').val();      
+      ajax();          
+      return false;
+    });
+    $("#bnt7").submit( function() {
+	  out = $('#out7').val();
+	  
+      ajax();
+	  $("#box1").css('visibility','visible');
+	  $("#result").css('visibility','hidden');
+	  f_user_id1=$('#f_user_id2').val();	
+		
+      return false;
+    });
+	$("#bnt8").submit( function() {
+      out = $('#bnt8').val(); 
+	  $("#result").css('visibility','hidden');
+	  $("#box1").css('visibility','visible');           
+      return false;
+    });
+	f_user_id=$('#f_user_id2').val();	
+	$.post('login.php',
+	{
+		f_user_id2: f_user_id, 			
+		out : "check"
+       }, 
+       function(data)  //回傳資料放在 data
+		{ 
+	
+	    f_user_id=$(data).find("pri_echo").text();	    
+ 	  	$('#f_user_id2').val(f_user_id);			
+		});
+
+});
+function unLoad()
+{
+    alert("ttt");
+	window.opener.location.href = window.opener.location.href;
+}
+function choice(my_form)
+    {
+	//alert("ttttt");
+		sel_a[0]="認證 Email";
+		sel_a[1]="認證 Line";
+		sel_a[2]="認證 手機號碼";
+		for (var i=0; i<my_form.radio_sel.length; i++)
+		{
+		   if (my_form.radio_sel[i].checked)
+		   {		   
+			// var radio_value= my_form.radio_sel[i].value;
+			    sel=i;
+				document.getElementById("type1").innerText=sel_a[i];
+				break;
+		   }
+		}       
+     }
+	
+</script>
+</head>
+<body bgcolor="#e9ffff" onunload="unLoad();">
+
+<div id="box1">
+
+<form  method="post" NAME="my_form">
+    <table width=600 border=1  >	
+	<tr>
+		<td align=right height=50 align=right bgcolor="#3399cc">
+		<font size=5 face="華康皮皮體w5" width=360 color=#ffffff>認證種類</font></td>
+		<td>
+			<form   NAME="my_form">
+			<INPUT TYPE="radio"  NAME="radio_sel" value="0" checked onClick="choice(this.form)">1.EMAIL認證 
+			<INPUT TYPE="radio"  NAME="radio_sel" value="1"         onClick="choice(this.form)">2.line認證
+			<INPUT TYPE="radio"  NAME="radio_sel" value="2"         onClick="choice(this.form)">3.手機認證<P>
+			
+			</form>
+		</td> 
+    </tr>
+	<form  method="post" NAME="my_form2">
+	<tr>
+		<td align=right height=50 align=right bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff><span id="type1">認證 Email</span></font></td>
+		<td><input type=text  id="f_email1" size=30  style="font-size:26px" ></right></td> 
+    </tr>
+	<tr>
+	<td  align=right bgcolor="#3399cc"><font class=fontstyle2>密碼:</font></td>
+        <td><input type=password id="f_passwd1" size=15 maxlength=18 style="font-size:30px" value=></td>
+	</tr>
+	</form>	 
+		 </table>
+
+
+       
+     
+<table width=300 border=0 align=center valign=middle >
+     <tr>    
+	<td>     
+     <form id=bnt5 align=center>  
+        <input type="submit" id=out5 value="註冊" class=fontstyle3>        
+     </form>  
+     </td>
+	 <td width=30px>     
+     
+     </td>
+	 <td  width=200> 
+     <form id=bnt4 align=center>  
+        <input type="submit" id=out4 value="登入" class=fontstyle3>
+     </form>  
+     </td>
+    
+     	
+     </tr>
+</table>	
+</div>
+<div id="result" >
+<table width=550 id='table2' border=1 align=left > 
+<tr><td align=right  height=50  bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>推薦人之會員編號</font></td>
+<td><input type=text  id="f_sug_user_id2" size=25 ></td> 
+<tr><td align=right width=220 height=50  bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>會員編號:</font></td>
+<td><input type=text  id="f_user_id2" size=25  disabled  value=></td>
+<tr><td align=right height=50 bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>認證 e-mail</font></td>
+<td><input type=text  id="f_email2" size=25 ></td> 
+<tr><td align=right  height=50  bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>密碼:</font></td>
+<td><input type=password id="f_passwd2" size=25 value=></td> 
+<tr><td align=right height=50   bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>姓名:</font></td>
+<td><input type=text  id="f_user_name2" size=25 value=></td> 
+<tr><td align=right  height=50   bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>身分證字號:</font></td>
+<td><input type=text  id="f_id2" size=25 value=></td> 
+<tr><td align=right  height=50  bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>出生年月日:</font></td>
+<td><input type=text  id="f_birthday2" size=25 value=></td> 
+<tr><td align=right  height=50  bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>手機號碼:</font></td>
+<td><input type=text  id="f_celephone2" size=25 value=></td> 
+<tr><td align=right  height=50  bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>配送地址:</font></td>
+<td><input type=text  id="f_address2" size=25 value=></td> 
+<tr><td align=right  height=50  bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>line id</font></td>
+<td><input type=text  id="f_line_id2" size=25 value=></td> 
+
+<!--! 
+<tr><td align=right width=120 bgcolor="#3399cc"><font size=5 face="華康皮皮體w5" color=#ffffff>電子信箱:</font></td>
+<td><input type=text id="f_mail" size=25 value=></td>
+--> 
+</table>
+
+<table width=200 id='table2' border=0 align=center >
+<form id=bnt7 align=center>
+<td><input type="submit" id=out7 value="送出"></td>
+</form>
+<form id=bnt8 align=center>
+<td><input type="submit" id=out8 value="返回"></td>
+</form>
+</table>
+</div> 
+
+</body>
+</html>

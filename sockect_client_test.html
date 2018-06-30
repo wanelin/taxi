@@ -1,0 +1,40 @@
+﻿<html>
+<head>
+	<script src="jquery-2.1.4.min.js"></script>
+</head>
+<body>
+
+<script>
+var ws = new WebSocket("ws://127.0.0.1:1234");
+
+
+
+ws.onopen = function(evt) { 
+  alert("Connection open ..."); 
+};
+
+ws.onmessage = function(evt) {
+  $("#content").append("<p>"+evt.data+"</p><br>")
+};
+
+ws.onclose = function(evt) {
+  alert("Connection closed.");
+};
+function close()
+{
+	//ws.close(1000);
+}
+function submit()
+{
+	var str = $("#input").val()
+	ws.send(str);
+	$("#input").val("");
+}
+</script>
+
+<input type = "text" id = "input">
+<button onclick = "close()">close connect</button>
+<button onclick = "submit()">submit</button>
+<div id = "content"></div>
+</body>
+</html>

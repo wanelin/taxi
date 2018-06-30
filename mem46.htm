@@ -1,0 +1,1000 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
+<title>司機管理</title>
+<link rel=StyleSheet type=text/css href=menu.css> 
+<script language="JavaScript" charset="utf8" src="menu.js"></script> 
+<script src="http://maps.google.com/maps?
+file=api&v=2&key=AIzaSyDcaO_4tupm75ShUvWqVdGuFfSNCsXBayo" type="text/javascript"></script>
+<script src="jquery-2.0.3.js"></script>
+<style type="text/css"> 
+#msg_result tr:hover
+{
+	background-color:#ffb3b3;
+}
+#container 
+{ 
+	position:fixed;
+	top:0px;
+	width : 1100px; 
+	margin : 2px auto;
+	z-index:9;
+}
+#title 
+{ 
+	top :40px;
+	width : 680px; 
+	height :50px;
+	margin-left:15%;		
+	background:-webkit-gradient(linear, 65% 36%, 21% 86%, from(#C394DD), to(#3D4BC2))		
+}
+.fix:after
+{ 
+	content : "."; 
+	clear : both;
+	display : block;
+	height : 0;
+	visibility : hidden; 
+}
+#tabs 
+{ 
+	position : absolute; 
+	list-style-type : none; 
+	font-family:"華康圓體 Std W3";
+	font-size:12pt;		
+	top:20px; 
+	left:50px;			
+}
+#tabs li 
+{ 
+	position : relative;
+	float : left;  
+	width : 120px;
+	text-align : center;  
+	margin : 0 -3px;
+}
+#tabs li a.active 
+{ 
+	position : relative;
+	top : 0px;
+	background-color : #339999;
+	border:1px solid #000000;
+	border-top-width:2px;
+	border-left-width:2px;
+	border-right-width:2px;
+	color: #FFFFFF;
+}
+#tabs li a 
+{ 
+	position : relative;
+	color: #000000;   
+	display: block;
+	padding: 5px 5px 5px 0px;            
+	text-decoration: none; 
+	border:groove 1px #23b1c4;
+	border-top-left-radius:24px;
+	border-bottom-left-radius:0px;
+	border-bottom-right-radius:9px;
+	background-color : #ffffcc;
+}
+.content 
+{ 
+	border :0px solid #333;
+}
+.tab
+{
+	display : none;         
+}
+#block_store
+{
+	position:fixed; 
+	margin:0px;
+	border:0px;
+	padding:0px; 
+	top:70px;	
+	left:30px;
+	width:960px;
+	height:100px;
+	font-size:14px;
+	background-color:#e0ebeb;
+	z-index:3;
+}
+#msg_result
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:180px;
+	left:30px;
+	width:400px;
+	height:560px;
+	background-color:#ffff99;
+	overflow: scroll;
+	z-index:1;
+}
+#table2
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:180px;
+	left:430px;
+	width:560px;
+	height:560px;
+	background-color:#D2E9FF;
+	z-index:1;
+}
+.header
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:70px;
+	background-color:#e80113;
+	z-index:2;	
+}	
+.back
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:70px;
+	left:0px;
+	width:100vw;
+	height:14vh;
+	background-color:#e9ffff;
+	z-index:2;	
+}
+#block0
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:30vh;
+	left:35vw;
+	width:30vw;
+	height:250px;
+	background-color:#ffffff;
+	z-index:1;
+}
+#text0
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:54vh;
+	left:43vw;
+	width:20vw;
+	height:10vw;
+	z-index:1;
+}
+.block
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:24vh;
+	left:33vw;
+	width:34vw;
+	height:10vh;
+	background-color:#ffffff;
+	z-index:2;
+}		
+a{text-decoration:none}
+.text
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:5px;
+	left:5px;
+	width:300px;
+	height:20px;
+	z-index:1;
+}	
+#flash{
+	position: absolute;
+	top: 0px;
+	left:0px;
+	z-index:1;
+}
+.fontstyle1
+{
+	font-size: 24px;
+	face:"華康皮皮體w5";
+ }
+.fontstyle2
+{
+	font-size: 24px;
+	face:"華康皮皮體w5";
+	color:#ffffff;
+}
+.fontstyle3
+{
+	font-size: 20px;
+}
+#map{
+	position:absolute; 
+	top:20vh;
+	left:1000px;
+	width:30vw;
+	height:50vh;
+}
+</style> 
+<script >
+/*
+var myCenter=new google.maps.LatLng(24.14154739115703,120.66944717407227);
+var pEnd=new google.maps.LatLng(24.14197739115703,120.66944717407227);
+
+var infowindow = new google.maps.InfoWindow({
+	size: new google.maps.Size(150, 50)
+	});
+*/
+var geocoder;
+var map;
+var marker;
+var marker1;
+var tot_dist=0;
+var p_sno=0;
+
+var sel_a=[];
+var addr1 = [];
+var addr2 = [];
+var lat_a=[];
+var lng_a=[];
+var add_a=[];
+var point_num=[];
+var addr_point_num=0;
+var f_driver_address="";
+var f_driver_address_a=[];	
+var f_driver_name_a=[];
+var f_driver_tel_a=[];	
+var f_area_a=[];
+var f_driver_email_a=[];
+var f_driver_id_a=[];
+var f_driver_area_a=[];
+f_contact_number_a=[];
+f_registration_a=[];
+f_weight_a=[];
+f_length_a=[];
+f_width_a=[];
+f_height_a=[];
+f_c_date_a=[];
+var f_sno_a=[];
+var sno=0;
+var read5_flg;
+var sno=0;
+var page_no=1;
+var max_page=0;
+
+
+$(function()
+{
+	var f_driver_id;
+    var f_passwd1;	
+	var f_identity1;   
+	var f_passwd2;  
+    var f_passwd3;     
+	var f_driver_name;   
+	var f_id2;      //身分證    
+	var f_birthday2;    
+	var f_celephone2;   
+	var f_driver_address;     
+	var f_line_id ;    
+	var f_introduction2; 
+	var f_driver_email;
+	var sel_type;
+    var out;
+	var page=0;
+	var parm;
+	
+				    
+	var f_contact_number2;			
+	var f_registration_number2;									    
+	var f_weight2;				    
+	var f_length2;				    
+	var f_width2;				
+	var	f_height2;							
+	var f_property2="";	
+	var f_equiment2=[];	
+	
+	
+	
+	$(".tab:eq(0)").show();
+	$("#tabs li a:eq(0)").addClass('active');		
+	$('ul#tabs li a').click(function() 
+	{			
+		//$("#page"+page).hide();
+		
+		page = $('ul#tabs li a').index(this);
+		$('ul#tabs li a').removeClass('active');
+		$(".tab:visible").hide();		
+		$(".tab:eq(" + page + ")").show();
+	//	$("#page"+page).show();
+		page_now=page;
+		 // document.location.href="layout"+(index+1)+".htm";
+		 $("#close_act").css({"visibility": "visible"});
+		$(this).addClass('active');	
+        switch(page)
+		{
+		case 0 :
+			$("#block_store").css({"background-color": "#e0ebeb"});					
+			break;
+		case 1 :
+			$("#block_store").css({"background-color": "#cce6ff"});					
+			break;	
+		case 2 :
+			$("#block_store").css({"background-color": "#99c2ff"});					
+			break;
+		case 3 :
+			$("#block_store").css({"background-color": "#99c2aa"});					
+			$("#close_act").css({"visibility": "hidden"});
+			break;
+		case 4 :
+			getdata();
+			$("#block_store").css({"background-color": "#99c200"});
+			document.location.href="excel.php?parm="+parm+"&query_method="+query_method;
+			break;
+		case 5 :	
+			getdata();
+			$("#block_store").css({"background-color": "#69a200"});
+			document.location.href="pdf.php?parm="+parm+"&query_method="+query_method;
+			break;	 
+		}		
+		return false;
+	});	
+	html="<option value='西元年'>西元年</option>";
+	for (y=2010;y>=1910;y--)
+	{
+		html+="<option value="+y+">"+y+"</option>";
+　	}					
+	$("#bir_year").html(html);
+	html="<option value='月份'>月份</option>";
+	for (m=1;m<=12;m++)
+	{
+		html+="<option value="+m+">"+m+"</option>";
+　	}					
+	$("#bir_month").html(html);
+	
+	html="<option value='日期'>日期</option>";
+	for (d=1;d<=31;d++)
+	{
+		html+="<option value="+d+">"+d+"</option>";
+　	}					
+	$("#bir_day").html(html);	
+	$("#f_driver_id").click(function()
+	{
+		 $("#query_method").val("編號查詢");
+	});
+	$("#f_driver_address").click(function()
+	{
+	     $("#query_method").val("住址查詢");
+	});
+	$("#f_driver_name").click(function()
+	{
+		 $("#query_method").val("名字查詢");
+	});
+	$("#f_area_sel").click(function()
+	{
+		 $("#query_method").val("區域查詢");
+	});
+	$("#f_driver_tel").click(function()
+	{
+		 $("#query_method").val("電話查詢");
+	});
+	$("#f_driver_email").click(function()
+	{
+		 $("#query_method").val("mail查詢");
+	});
+	$("#f_line_id").click(function()
+	{
+		 $("#query_method").val("line查詢");
+	});
+	$("#home_page").click(function()
+	{
+		history.go(-1);		
+	});
+	
+	function getdata()
+	{ 
+			
+		//查詢項
+		f_driver_id       =$('#f_driver_id').val();
+		f_driver_name   	=$('#f_driver_name').val(); 
+		f_driver_tel       	=$('#f_driver_tel').val();
+		f_driver_address     	=$('#f_driver_address').val();
+		f_driver_address=f_driver_address.trim();
+		f_line_id     	=$('#f_line_id').val(); 
+		f_driver_email       	=$('#f_driver_email').val();
+		
+		//非查詢項	
+		f_contact_number2		=$('#f_contact_number2').val();			
+		f_registration_number2	=$('#f_registration_number2').val();								    
+		f_weight2				=$('#f_weight2').val();				    
+		f_length2				=$('#f_length2').val();				    
+		f_width2				=$('#f_width2').val();			    
+		f_height2				=$('#f_height2').val();							
+		f_property2="";	
+		$("input[name='f_property']:checked").each(function () {f_property2 = $(this).val()}) ;		
+		f_equiment2=[];
+		$("input[name='f_equiment']:checked").each(function ()
+		{
+			a=$(this).val();
+			f_equiment2.push(a);
+		});
+		
+		result = f_equiment2.toString();
+		//sel_type=$('input:radio:checked[name="radio_sel"]').val();	
+		f_identity1		='1'; 
+		//f_driver_area=$("#f_area_sel").find(":selected").text();	
+		query_method=$("#query_method").val();
+		switch(query_method)
+		{
+		case "編號查詢": 
+			parm=f_driver_id;
+			break;
+		case "mail查詢":  
+			parm=f_driver_email;
+			break;
+		case "住址查詢":
+			parm=f_driver_address;			
+			break;
+		case "名字查詢":  
+			parm=f_driver_name;
+			break;
+		case "電話查詢":  
+			parm=f_driver_tel;
+			break;
+		case "區域查詢":  
+			parm=f_driver_area_code;
+			break;
+		case "line查詢":  
+			parm=f_line_id;
+			break;	
+		}
+		
+	}
+	function ajax()
+	{	
+			
+		getdata();
+		
+		$.post('mem41.php',
+		{ 
+		  f_driver_id      		:f_driver_id,
+		  f_driver_name    		:f_driver_name,  
+		  f_driver_tel     		:f_driver_tel ,
+		  f_driver_address    		:f_driver_address,  
+		  f_line_id    		:f_line_id,
+		  f_driver_email   		:f_driver_email,
+		  
+		  f_contact_number2		:f_contact_number2,		
+		  f_registration_number2:f_registration_number2,
+		  f_weight2				:f_weight2,				
+		  f_length2				:f_length2,				
+		  f_width2				:f_width2,				
+		  f_height2				:f_height2,				
+		  f_property2			:f_property2,
+		  f_equiment2			:f_equiment2,
+		  sel_type  		    :sel_type,
+		  sno       		    :sno,
+		  out 					:out 
+		},
+		function(data) 
+		{        //回傳資料
+		    pri_echo=$(data).find('pri_echo').text();
+            alert(pri_echo+"after"+out);
+			
+			$("#query_method").val("編號查詢");
+			if (page==2)
+			{
+			$(data).find('f_driver_id').val("");
+			}
+			print1();			
+		});
+	}        
+    $("#close_act").click(function()
+	{ 
+		//alert("ttt");
+		if (page==2)
+		{
+			out="刪除";
+			ajax();
+		}
+		else
+		{
+			msg="";
+			str=$("#f_driver_name").val();
+			str=str.trim();
+			if(str.length==0)
+			{	    
+				msg="姓名不能空白 ";
+				alert(msg);
+			}
+			else
+			{	
+				
+				switch(page)
+				{
+				case 0 :
+					out="新增司機資料";					
+					break;
+				case 1 :
+				case 3 :
+					out="修改司機資料";					
+					break;
+					
+				}
+		
+				ajax();
+			}
+		}
+		return false;
+    });	
+	$("#bir_year").change(function()
+	{	
+		get_birthday();		   
+	});
+	$("#bir_month").change(function()
+	{	
+		get_birthday();
+		   
+	});	
+	$("#bir_day").change(function()
+	{	
+		get_birthday();
+	});
+	function get_birthday()
+	{
+		yy=$('#bir_year').val();
+		mm=$('#bir_month').val();
+		dd=$('#bir_day').val();			
+		if(dd<10) {
+			dd='0'+dd
+		} 
+		if(mm<10) {
+			mm='0'+mm
+		} 
+		today = yy+"-"+mm+'-'+dd;			
+		$("#f_birthday2").val(today);			
+	}
+		
+   	$('input[type=file]').on('change', prepareUpload);         
+    function prepareUpload(event)
+    {            
+        files = event.target.files;
+    }
+});
+//處理照片上傳
+	var files;
+    
+//上傳照片
+function pic_upload(n)
+{
+	out ="上傳照片";
+	
+	uploadFiles(n);
+	return false;
+}
+   
+	function uploadFiles(p)
+	{
+	  //  event.stopPropagation(); 
+      //  event.preventDefault();
+		var data = new FormData();
+		fault_flg="f";
+		
+			data.append("pic_type"    ,p );
+        	data.append("f_mat_id"    ,"test" );
+			data.append("out"    ,'照片上傳' );
+			var x = document.getElementById("f_cargo_file" +p).value;				
+				if (x)
+				{
+				//有照片
+					$.each(files, function(key, value) //將圖檔的資料  附加到 Data
+					{		
+						data.append(key, value);				
+					});
+				}
+				else
+				{
+					alert("未選擇任何照片");
+				}			
+			   	
+				//真正上傳的動作 
+			
+			var return_val = $.ajax({
+				url: 'mem41.php',   //搭配的 php 程式
+				type: 'POST',		 //傳檔方式
+				data: data,          //要傳給 php 的所有資料都放在 data裏
+				cache: false,
+				dataType: 'xml',     //回傳資料的格式 可以是 html ,xml,json ... 
+				processData: false,
+				contentType: false, 
+				async: false                
+			}).responseText;
+			
+			r_val_1=Math.random()*10000;
+			r_val_2=Math.random()*10000;			
+			obj_name=["","f_cargo_file1","f_cargo_file2"];
+			obj_path=["","cargo/","cargo/"];			
+			$('#'+obj_name[p]).prop('src',"pic/"+obj_path[p]+ "test.jpg?v1="+r_val_1+"&v2="+r_val_2);
+			alter("ttt1");	
+			
+		
+			
+	}; 
+
+
+
+
+function printpage(myDiv)
+{
+	var newstr = document.getElementById(myDiv).innerHTML;
+	var oldstr = document.innerHTML;
+	var WinPrint = window.open();
+	WinPrint.document.body.innerHTML = newstr;
+	WinPrint.window.print();
+	WinPrint.close();
+	document.innerHTML = oldstr;
+	return false;
+}
+function print1()
+{
+	var add = "400台中市中區繼光街46號1樓";
+	
+	f_driver_address=$("#f_driver_address").val();	
+	f_driver_address=f_driver_address.trim();
+	f_driver_id=$("#f_driver_id").val();	
+	f_driver_name=$("#f_driver_name").val();
+	f_driver_email=$("#f_driver_email").val();
+	f_driver_tel=$("#f_driver_tel").val();
+	f_line_id=$("#f_line_id").val();
+	f_driver_tel=$("#f_driver_tel").val();
+	f_driver_area=$("#f_area_sel").find(":selected").text();
+	query_method=$("#query_method").val();
+	page_no = $('#page_no').val();
+	// alert('return_echo '+f_driver_id+"  "+f_driver_area+"  "+f_driver_name+"  "+f_driver_tel+"  "+f_driver_email+"  "+query_method); 
+	if(page_no>max_page && max_page>0)
+	{
+		page_no=1;
+		$('#page_no').val(page_no);
+	}
+	//alert(page_no);
+	$.post('mem41.php',
+	{			
+		page_no:page_no,
+		query_method:query_method,
+		f_driver_id:f_driver_id,
+		f_driver_address:f_driver_address,
+		f_driver_name:f_driver_name,
+		f_driver_area:f_driver_area,
+		f_driver_tel:f_driver_tel,
+		f_driver_email:f_driver_email,
+		f_line_id:f_line_id,
+		out:"chk"
+	}, 
+	function(data) 
+	{    //回傳資料放在 data		  
+		return_echo=$(data).find('res_echo').text();   
+		// alert(return_echo);    
+		query_tot_num=Number($(data).find("query_tot_num").text());
+		max_page=Math.floor(query_tot_num/30)+1;
+		$("#max_num").html(max_page+"頁");
+		switch(query_method)
+		{
+		case "mail查詢":  
+			html="<table border=1 width=400px style='font-size:16px'><th width=80px>編號</th><th width=80px>姓名</th>";		
+			html+="<th width=240px>mail</th>";
+			break;
+		case "編號查詢":				
+		case "名字查詢": 
+		case "住址查詢":				
+		case "名字查詢":  
+			html="<table border=1 width=600px style='font-size:16px'><th width=80px>編號</th><th width=80px>姓名</th>";			
+			html+="<th width=440px align=left>住址</th>";
+			break;
+		case "電話查詢":  
+			html="<table border=1 width=360px style='font-size:16px'><th width=80px>編號</th><th width=80px>姓名</th>";
+			html+="<th width=100px align=left>電話</th>";
+			break;
+		case "line查詢":  
+			html="<table border=1 width=360px style='font-size:16px'><th width=80px>編號</th><th width=80px>姓名</th>";	
+			html+="<th width=100px align=left>LINE</th>";
+			break;
+		case "區域查詢":  
+			html="<table border=1 width=360px style='font-size:16px'><th width=80px>編號</th><th width=80px>姓名</th>";			
+			html+="<th width=80px align=left>區域</th>";
+			break;
+		}	
+		$(data).find("sales").each(                      //回傳處理多筆資料,先把資料全部取出
+		function(i)      //i 傳回震裂所引
+		{			
+			add_a[i]=$(this).find('f_driver_address').text();
+			f_driver_name_a[i]=$(this).find('f_driver_name').text();
+			f_driver_tel_a[i]=$(this).find('f_driver_tel').text();				
+			f_driver_email_a[i]=$(this).find('f_driver_email').text();	
+			f_driver_id_a[i]=$(this).find('f_driver_id').text();	
+			f_driver_area_a[i]=$(this).find('f_driver_area').text();	
+			
+			f_contact_number_a[i]=$(this).find('f_contact_number');
+			f_registration_a[i]=$(this).find('f_registration');
+			f_weight_a[i]=$(this).find('f_weight');
+			f_length_a[i]=$(this).find('f_length');
+			f_width_a[i]=$(this).find('f_width');
+			f_height_a[i]=$(this).find('f_height');
+			f_c_date_a[i]=$(this).find('f_c_date');
+			
+			f_sno_a[i]=$(this).find('sno').text();			
+			html+="<tr><td onclick='showmap("+i+")'width=90px >"+$(this).find('f_driver_id').text() +"</td>";
+			html+="<td onclick='showmap("+i+")' width=120px>"+$(this).find('f_driver_name').text() +"</td>";
+			html+="<td onclick='showmap("+i+")' width=120px>";
+			switch(query_method)
+			{				
+			case "line查詢":  
+				html+=f_line_id_a[i]+"</td>";
+				break;
+			case "mail查詢":  
+				html+=f_driver_email_a[i]+"</td>";
+				break;
+			case "編號查詢": 
+			case "住址查詢": 					
+			case "名字查詢" :  
+				html+=add_a[i]+"</td>";
+				break;break;
+			case "電話查詢":  
+				html+=f_driver_tel_a[i]+"</td>";
+				break;
+			case "line查詢":  
+				html+=f_line_id_a[i]+"</td>";;
+				break;
+			case "區域查詢":  
+				html+=f_driver_area_a[i]+"</td>";;
+				break;
+			}	
+		});
+		html+="</table>";
+		$("#msg_result").html(html);
+		// alert("lat"+lat_a_a[addr_point_num][0]+"   "+lng_a_a[addr_point_num][0]);             
+		// addr_p(f_driver_tel_a[0],f_driver_name_a[0],add_a[0]);
+		$("#f_driver_address").val(add_a[0]);
+		$("#f_driver_id").val(f_driver_id_a[0]);	
+		$("#f_driver_name").val();
+		$("#f_driver_email").val(f_driver_email_a[0]);
+		$("#f_driver_tel").val();
+		$("#f_line_id").val(f_line_id_a[0]);
+		$("#f_driver_tel").val(f_driver_tel_a[0]);
+		$("#f_area_sel").find(":selected").text();			
+	});
+	
+}
+function showmap(n)
+{
+    $("#f_driver_id").val(f_driver_id_a[n]);
+	$("#f_driver_address").val(add_a[n]);		
+	$("#f_driver_name").val(f_driver_name_a[n]);	
+	$("#f_driver_tel").val(f_driver_tel_a[n]);	
+	$("#f_driver_email").val(f_driver_email_a[n]);
+//	alert(f_driver_email_a[n]);
+	$("#f_line_id").val(f_line_id_a[n]);
+	
+	$("#f_celephone2").val(f_celephone_a[n]);
+	$("#f_passwd2").val(f_passwd_a[n]);
+	$("#f_introduction2").val(f_introduction_a[n]);
+	var bir = new Date(f_birthday_a[n]);    
+	$("#bir_year").val(bir.getFullYear());					
+	$("#bir_month").val(bir.getMonth()+1);					
+	$("#bir_day").val(bir.getDate());
+	sno=f_sno_a[n];	
+	
+    addr_p(f_driver_tel_a[n],f_driver_name_a[n],add_a[n]);
+ /* 
+  $("#f_driver_area").(f_driver_area_a[n]);
+  $("#f_area_sel").find(":selected").text();
+  $("#query_method").val();
+ 
+ */ 
+}
+function return1()
+{
+	document.location.href="index.htm";
+}
+function addr_p(my_tel,my_name,address)
+{
+	var map = new google.maps.Map2(document.getElementById("map")); 
+	var geocoder = new GClientGeocoder(); //解譯程式	
+	geocoder.getLatLng(address, function(point) { 
+	if (!point) 
+	{ 
+	//$('msg').html('這個地址 Google 說不知道，所以沒辦法顯示地圖！'); 
+	} else 
+	{ 
+		map.setCenter(point, 16); 
+		var marker = new GMarker(point); 
+		map.addOverlay(marker);
+		str="<img src='holygo/png/31.png' width=50><font color=#e52b69 style='font-size:18px'>"+my_name+"  : </font> TEL:"+my_tel+"<br><font color=blue>"+address+"</font>";	
+		marker.openInfoWindowHtml(str); 
+	} 
+	}); 
+	google.setOnLoadCallback(initialize);
+}	
+</script>
+</head>
+<body   alink="#ffffff" link="#ffffff" vlink="#ffffff" style="font-family:微軟正黑體">
+<div id="container" >
+   <ul id="tabs" class="fix">
+	  <li><a href="#">新增司機</a></li>
+	  <li><a href="#">司機修改</a></li>
+	  <li><a href="#">司機刪除</a></li>	
+	   <li><a href="#">司機查詢</a></li>	
+	  <li><a href="#">列印EXCEL</a></li>
+	   <li><a href="#">列印司機PDF</a></li>
+   </ul>
+   <div class="content" >
+	  <div class ="tab" >
+	  </div>
+	  <div class="tab">
+	  </div>
+	  <div class="tab">
+	  </div>
+	  <div class="tab">
+	  </div>
+	  <div class="tab">
+	  </div
+	  <div class="tab">
+	  </div>
+   </div>
+</div> 
+<div id=block_store >
+	司機編號<input type="text" size=10 id=f_driver_id value="" placeholder="不能修改" ><br>	
+	司機名字<input type="text" size=10 id=f_driver_name value=" ">
+	司機住址<input type="text" size=30 id=f_driver_address value="台中">
+	連絡電話<input type="text" size=10 id=f_driver_tel value="04-"><br>	
+	LINE ID  <input type="text" size=10 id=f_line_id>
+	電子郵件<input type="email" size=15 name="電子郵件"  id=f_driver_email>
+	
+	<!--<div id=f_area_sel></div>
+	區域<input type="text" size=20 id=f_driver_area value="台中市西區"> -->
+				
+	<input type="button" onclick="print1()" style="background:#EEE8AA;color:#000000;font-size:16px;width:100px" id=query_method value="住址查詢">
+	第<input type="number" id=page_no value=1 style="width:2em;" >頁 每頁30筆 / 最大頁數:<span id=max_num></span><br>
+	<input type="button" onclick="return1()" style="background:#EEE8AA;color:#000000;font-size:16px;width:100px"  value="回首頁">
+	<div id=msg></div>
+	<!--距離<div id=distance></div>-->
+ <div id="map" ></div> 
+</div>
+	<div id="msg_result" class="force-overflow"></div>
+	
+	<div id=table2>
+				<table align="center" border=1  style=" height: 200px; width: 540px" align="left" cellpadding="10" cellspacing="5" >
+					
+				<tr>
+					<td align = "center" colspan = "4">
+						司機資料
+					</td>
+				</tr>
+				
+				<tr>
+					<td align=middle  width=200px>車輛照片1</td>					        
+					<td><input type=file id="f_cargo_file1" ><input type="button"  value="照片上傳" onclick="pic_upload(1)"> 
+						<img  width=80 id=f_cargo_pic1>
+					 </td>
+					<td align=middle  width=200px>車輛照片2</td>
+					<td><input type=file id="f_cargo_file2" ><input type="button"  value="照片上傳" onclick="pic_upload(2)"> 
+						<img  width=80 id=f_cargo_pic2>
+					</td>				
+				</tr>
+				
+				<tr>
+					<td align=middle  width=200px>保險卡</td>
+					<td align = "middle">
+						<input type="image"  size=10 id=f_insurance>
+					</td>
+					
+					<td align=middle  width=200px>行車執照</td>
+					<td align = "middle">
+						<input type="image"  size=10 id=f_vehicle_license>
+					</td>
+					
+				</tr>
+				
+				<tr>
+					<td align=middle  width=200px>駕駛執照</td>
+					<td align = "middle">
+						<input type="image"  size=10 id=f_driving_license>
+					</td>
+					
+					<td align=middle  width=200px>身分證</td>
+					<td align = "middle">
+						<input type="image" size=10 id=f_ID_card>
+					</td>
+				</tr>
+				
+				<tr>
+					<td align=middle colspan = "1">					
+						車輛性質
+					</td>				
+					<td align = "middle" colspan = "3">		
+						<input type="radio"  name="f_property" value=1>1.靠行&emsp;
+						<input type="radio"  name="f_property" value=2>2.貨運公司&emsp;
+						<input type="radio"  name="f_property" value=3>3.搬家公司					
+					</td>
+				</tr>
+				<tr>
+					<td align=middle>					
+						綁定電話
+					</td>				
+					<td align = "middle">		    
+						<input type="text" size=10 id=f_contact_number2>
+					</td>				
+					<td align=middle  width=200px >綁定車牌號碼</td>
+					<td align = "middle" >
+						<input type="text" size=10 id=f_registration_number2>
+					</td>
+				</tr>
+				<tr>
+					<td align=left>
+						重量限制(公斤)
+					</td>
+					<td align = "middle">				    
+						<input type="text" size=10 id=f_weight2>
+					</td>
+
+					<td align=left>
+						長度限制(公分)
+					</td>
+					<td align = "middle">				    
+						<input type="text" size=10 id=f_length2>
+					</td>
+				</tr>
+				
+				<tr> 			
+					<td align=left>
+						寬度限制(公分)
+					</td>
+					<td align = "middle">				    
+						<input type="text" size=10 id=f_width2>
+					</td>
+					<td align=left>
+						高度限制(公分)
+					</td>
+					<td align = "middle">				    
+						<input type="text" size=10 id=f_height2>
+					</td>
+					
+				</tr>
+					
+				<tr>
+					<td colspan = "1" align = "center">
+						本車配備
+					</td>
+					<td colspan = "3">
+						<input type="checkbox" name=f_equiment value=1>司機協助手動搬運&emsp;
+						<input type="checkbox" name=f_equiment value=2>隨身助手&emsp;
+						<input type="checkbox" name=f_equiment value=3>低溫冷藏<br>
+						<input type="checkbox" name=f_equiment value=4>升降尾門&emsp;
+						<input type="checkbox" name=f_equiment value=5>可以推高機裝卸<br>
+						<input type="checkbox" name=f_equiment value=6>自備拖板車&emsp;
+						<input type="checkbox" name=f_equiment value=7>自備手推車&emsp;
+						<input type="checkbox" name=f_equiment value=8>提供吊桿
+					</td>
+				</tr>
+			</table>		
+		<input type="button" value="送出" size=30  id=close_act >					
+	</div>
+	
+</body>
+</html>

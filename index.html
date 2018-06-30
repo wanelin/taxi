@@ -1,0 +1,229 @@
+﻿<html>
+<head>
+	<link rel="stylesheet" href="mobile/jquery.mobile-1.4.5.min.css" />
+	<script src="jquery-2.1.4.min.js"></script>
+	<script src="mobile/jquery.mobile-1.4.5.min.js"></script>
+	<script>
+		
+	</script>
+	<meta name = "viewport" content = "width=device-width, inital-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scale = no"/>
+
+	<style>
+		<!--
+		.center-wrapper
+		{
+			text-align: center;
+		}
+		.center-wrapper * 
+		{
+			margin: 0 auto;
+		}
+		.center-block
+		{
+			position: absolute;
+			left: 50%;
+		}
+		-->
+	</style>
+</head>
+<body>
+	<!--taxi_客戶首頁 page -->
+	<div data-role = "page"  id = "taxi_customer_index_page">
+			
+		<div data-role = "header" data-position = "fixed">
+		<h1>HEAD</h1>
+		</div>
+		
+		<div data-role="main">
+			
+				<a href="#taxi_customer_call_now" data-role="button"  data-transition="slide">即時叫車</a>  
+				<a href="#" data-role="button">Link button1</a> 
+				<a href="index.html" data-role="button">Link button2</a>
+				<a href="index.html" data-role="button">Link button3</a>
+
+		</div>
+	</div>
+	
+	
+	
+	<!--taxi_即時叫車 page -->
+	<div data-role = "page" id = "taxi_customer_call_now" >
+		<script>
+		function check_form()
+		{
+		  if(confirm("確認送出？")==true)   
+			return true;
+		  else  
+			return false;
+
+		}
+		</script>
+		
+		
+		<div data-role = "header">
+			<a href = "#taxi_customer_index_page" data-icon = "arrow-l"  data-rel="back">回上一頁</a>
+			<h1>HEAD</h1>
+		</div>
+		
+		
+		<div data-role="content">
+		
+		
+			<form action = "index.php" method="post" onsubmit = "check_form()">
+				<select name="car_type" id="car_type" data-native-menu="false">
+					<option value = "normal">一般叫車</option>
+					<option value="n_smoke">無煙車</option>
+				</select>
+				
+				
+				<label for="start_position">上車地點</label>
+				<input type="text" name="start_position" id="start_position" value="">
+				
+				
+				<label for="end_position">下車地點</label>
+				<input type="text" name="end_position" id="end_position" value="">
+				
+				
+				<label for="customer_num">人數</label>
+				<select name="customer_num" id="customer_num" data-native-menu="false">
+					<option value = "4">四人以下</option>
+					<option value="5">五人</option>
+					<option value="6">六人</option>
+					<option value="7">七人</option>
+					<option value= "8">八人</option>
+				</select>
+				
+				
+				<label for="ps">備註</label>
+				<input type="text" name="ps" id="ps" value="">
+				
+				
+				<fieldset data-role="controlgroup" data-type = "horizontal">
+					<legend>呼叫範圍</legend>
+					<label for="km_5">5公里</label>
+					<input type="radio" name="range" id="km_5" value="5">
+					<label for="km_10">10公里</label>
+					<input type="radio" name="range" id="km_10" value="10" checked = "true"> 
+					<label for="km_20">20公里</label>
+					<input type="radio" name="range" id="km_20" value="20"> 
+				</fieldset>
+				
+				
+				<div class="ui-grid-b ui-body-c">
+					<div class = "ui-block-a"></div>
+					<div class = "ui-block-b"><input type = "submit" value = "送出" /></div>
+					<div class = "ui-block-c"></div>
+				</div>
+			
+			
+			</form>
+		
+		
+		</div>
+	
+	
+	</div>
+	
+	<!--發生叫車事件頁面 -->
+	<div data-role = "page" id = "event0">
+		<div data-role = "content">
+		<p>hello</p>
+			<div data-role = "control-group" data-type = "horizontal">
+			<button data-icon = "check" data-inline = "true" data-corners = "false">接單</button>
+			<a data-role = "button" data-rel = "back" data-icon = "delete" data-inline = "true" data-corners = "false">放棄</a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!--taxi_司機首頁 page -->
+	<div data-role = "page" id = "taxi_driver_index">
+		<script>
+			$(document).on("pageinit", "#taxi_driver_index", function(e)
+			{
+				
+				function check_event()
+				{
+					$.post("data.php",{},
+					function(data){
+						if(data !== "No Match") <!-- if doesn't find any match return no match-->
+						{
+							
+						}
+					});
+				
+				}
+				function scale( width, height, padding, border ) {
+				var scrWidth = $( window ).width(),
+					scrHeight = $( window ).height(),
+					ifrPadding = 2 * padding,
+					ifrBorder = 2 * border,
+					ifrWidth = width + ifrPadding + ifrBorder,
+					ifrHeight = height + ifrPadding + ifrBorder,
+					h, w;
+					/*
+					if ( ifrWidth < scrWidth && ifrHeight < scrHeight ) {
+						w = ifrWidth;
+						h = ifrHeight;
+					} else if ( ( ifrWidth / scrWidth ) > ( ifrHeight / scrHeight ) ) {
+						w = scrWidth;
+						h = ( scrWidth / ifrWidth ) * ifrHeight;
+					} else {
+						h = scrHeight;
+						w = ( scrHeight / ifrHeight ) * ifrWidth;
+					}
+					*/
+					 if ( ( ifrWidth / scrWidth ) > ( ifrHeight / scrHeight ) ) {
+						w = scrWidth;
+						h = ( scrWidth / ifrWidth ) * ifrHeight;
+					} else {
+						h = scrHeight;
+						w = ( scrHeight / ifrHeight ) * ifrWidth;
+					}
+					w = scrWidth;
+					h = scrHeight;
+					return {
+						'width': w - ( ifrPadding + ifrBorder ),
+						'height': h - ( ifrPadding + ifrBorder )
+					};
+				};
+				$( ".ui-popup iframe" )
+					.attr( "width", 0 )
+					.attr( "height", "auto" );
+				$( "#popupVideo" ).on({
+					popupbeforeposition: function() {
+						// call our custom function scale() to get the width and height
+						var size = scale( 497, 298, 15, 1 ),
+							w = size.width,
+							h = size.height;
+						$( "#popupVideo iframe" )
+							.attr( "width", w )
+							.attr( "height", h );
+					},
+					popupafterclose: function() {
+						$( "#popupVideo iframe" )
+							.attr( "width", 0 )
+							.attr( "height", 0 );
+					}
+				});
+			
+			});
+			
+			//setInterval
+		</script>
+		<div data-role = "header">
+			<a href = "#taxi_customer_index_page" data-icon = "arrow-l"  data-rel="back">回上一頁</a>
+			<h1>司機專頁</h1>
+		</div>
+		
+		<div data-role = "content">
+		<a href="#popupVideo" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">叫單事件</a>
+		<div data-role="popup" id="popupVideo" data-overlay-theme="b" data-theme="a" data-tolerance="0,0" class="ui-content">
+			<iframe src="#event0" width="497" height="298" seamless=""></iframe>
+		</div>
+		</div>
+		
+		
+	
+</body>
+</html>

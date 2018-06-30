@@ -1,0 +1,1088 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
+<title>登入</title>
+<link rel=StyleSheet type=text/css href=hlg_header.css>
+<style type="text/css"> 
+
+#step0
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:5vh;
+	left:5vw;
+	width:100vw;
+	height:300vh;
+	z-index:1;	
+}
+#step1
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:5vh;
+	left:5vw;
+	width:100vw;
+	height:70vh;
+	z-index:1;		
+}
+#step2
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:5vh;
+	left:5vw;
+	width:100vw;
+	height:300vh;
+	z-index:1;
+}
+#step3
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:35vh;
+	left:5vw;
+	width:100vw;
+	height:300vh;
+	z-index:1;	
+}
+#step4
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:5vh;
+	left:5vw;
+	width:100vw;
+	height:40vh;
+	z-index:1;
+}
+
+</style> 
+<script src="jquery-2.0.3.js"></script>
+
+<script language="javascript">
+function getArgs() {
+//取得傳來的參數
+//f_usr_id 是 使用者帳號  f_driver_id是 會員編號
+   var args = new Object(); 
+   //in this case: 
+   //location = b.htm?aa=1&bb=abc&cc=測試" 
+   //locatin.search = ?aa=1&bb=abc&cc=測試" 
+   var query = location.search.substring(1); //aa=1&bb=abc&cc=測試" 
+   var pairs = query.split("&"); 
+   for(var i=0;i<pairs.length;i++) { 
+      var pos = pairs[i].indexOf("="); 
+      if (pos == -1) continue; 
+      var argname = pairs[i].substring(0,pos); 
+      var value = pairs[i].substring(pos+1); 
+      args[argname] = decodeURIComponent(value); 
+   } 
+   return args; 
+} 
+var args = getArgs(); 
+var f_class_id=0;
+
+if (args.prod_class)
+{ 
+  // alert("prod_class=" + args.prod_class); 
+   f_class_id=args.prod_class;   
+}
+else
+{
+	f_class_id=0;
+}
+//alert(f_class_id);
+function printpage(myDiv)
+{
+	var newstr = document.getElementById(myDiv).innerHTML;
+	var oldstr = document.innerHTML;
+	var WinPrint = window.open();
+	WinPrint.document.body.innerHTML = newstr;
+	WinPrint.window.print();
+	WinPrint.close();
+	document.innerHTML = oldstr;
+	return false;
+}
+
+</script>
+
+<script language="javascript">
+var sel_a=[];
+var sel=0;
+var read5_flg="f";
+var sno=0;
+function chk_read5()
+{
+	read5_flg="t";
+}
+var geocoder;
+var map;
+var marker;
+var marker1;
+var tot_dist=0;
+var p_sno=0;
+
+var sel_a=[];
+var lat_a=[];
+var lng_a=[];
+var point_num=[];
+var addr_point_num=0;
+var f_driver_id;
+var f_driver_name;  
+var f_birthday;   
+var f_driver_email;
+var f_driver_address="";
+var f_celephone1 ;  
+var f_contact_number="";			
+var f_registration_number="";									    
+var f_weight=0;				    
+var f_length=0;				    
+var f_width=0;				
+var	f_height=0;							
+var f_property=0;
+var f_equitment=[];	
+	
+var f_driver_id_a=[];	
+var f_driver_name_a=[];
+var f_driver_tel_a=[];
+var f_area_a=[];
+var f_driver_email_a=[];
+var f_driver_address_a=[];
+var f_celephone_a=[];
+var f_contact_number_a=[];
+var f_registration_number_a=[];
+var f_weight_a=[];
+var f_length_a=[];
+var f_width_a=[];
+var f_height_a=[];
+var f_property_a=[];
+var f_equitment_a=[];
+var f_driver_area_a=[];
+var f_c_date_a=[];
+var f_sno_a=[];
+var sn_index_1_a=[];
+var sno=0;
+var f_driver_id_top=0;
+var search_key="";
+var page_no=1;
+var max_page=0;
+var sel_type="0";
+var out;
+var page=0;
+var parm;
+var query_method=0;
+var update_flg="t";
+var f_driver_email2 ="";
+var	f_celephone2   	="";	  
+var	f_line_id2     	=""; 
+var	f_passwd2      	="";
+var	f_passwd3      	="";
+var	f_driver_name2  =""; 
+var files=[];
+var very_code="";
+
+$(function()
+{
+	$(".menu_2").css({"visibility": "hidden"});
+	$("#grid3").css({"visibility": "hidden"});
+	var f_driver_id1;
+    var f_passwd1;
+	
+	var f_identity1;
+	var f_driver_id2;     
+	var f_passwd2;  
+    var f_passwd3;     
+	var f_driver_name2;   
+	var f_id2;      //身分證 
+	var f_address2;     
+	var f_line_id2 ;    
+	var f_sug_driver_id2; 
+	var f_driver_email2;
+	var sel_type;
+    var out;
+	$('#step0').css('visibility','visible');
+	$('#step1').css('visibility','hidden');
+	$('#step2').css('visibility','hidden');
+	$('#step3').css('visibility','hidden');
+	$('#step4').css('visibility','hidden');
+	
+	$("#out2").click(function()
+	{  
+	  
+		$('#step0').css('visibility','hidden');
+		$('#step1').css('visibility','visible');
+		$('#step2').css('visibility','hidden');
+		$('#step3').css('visibility','hidden');
+		$('#step4').css('visibility','hidden');
+	
+		$('#f_driver_id1').val($('#f_driver_email2').val());
+		//$('#f_driver_email2').val('');
+		/*$('#f_celephone2').val('');	  
+		$('#f_line_id2').val(''); 
+		$('#f_passwd2').val('');
+		$('#f_passwd3').val('');		
+		$('#f_driver_name2').val('');
+*/		
+		//$('#f_id2').val();
+		$('#f_tel2').val('');
+		$('#f_birthday2').val('');
+		$('#f_sug_driver_id2').val('');
+		$('#f_address2').val('');		
+    });
+
+
+	$("#prev_step1").click(function()
+	{
+		$('#step0').css('visibility','visible');
+		$('#step1').css('visibility','hidden');
+		$('#step2').css('visibility','hidden');
+		$('#step3').css('visibility','hidden');
+		$('#step4').css('visibility','hidden');
+	
+	});
+	$("#next_step11").click(function()
+	{
+	    //驗證碼確認
+		input_code=$('#very_code').val();
+		if (input_code==very_code)
+		{
+		   alert("驗證碼確認成功");
+		    $('#very_lale').css('visibility','hidden');
+		    $('#step0').css('visibility','hidden');
+			$('#step1').css('visibility','hidden');
+			$('#step2').css('visibility','visible');
+			$('#step3').css('visibility','visible');
+			$('#step4').css('visibility','hidden');
+		 }
+		else
+		{
+		alert("驗證碼確認失敗");
+		}
+	})
+	$("#next_step1").click(function()
+	{
+	//驗證
+		msg0="";
+		if (read5_flg != "t" )
+		{
+			 msg0="  未閱讀服務條款";
+        }	
+//alert(msg0+f_class_id);		
+		getdata();
+		msg1="";
+		msg2="";
+		str=$("#f_celephone2").val();
+		str=str.trim();
+		len1=str.length;
+		str=$("#f_driver_email2").val();
+		str=str.trim();
+		len2=str.length;
+		if (len2>0)
+		{
+			reg = /^[^\s]+@[^\s]+\.[^\s]{2,3}$/;
+			if ( !reg.test(str)) 
+			{
+				msg1=" E-Mail 格式錯誤! ";
+			}
+		}
+		str=$("#f_line_id2").val();
+		str=str.trim();		
+		len3=str.length;
+		//tot_len=len1+len2+len3;
+		tot_len=len1;
+		if(tot_len==0)
+		{	    
+			//msg1=" Email 或 手機 或 Line_id 一定擇一填寫  ";
+			msg1="手機一定要填寫  ";
+		}
+		pass1=$("#f_passwd2").val();
+		pass1=pass1.trim();
+		pass_len1=pass1.length;
+		
+		if(pass_len1<8)
+		{	    
+			msg2=" 密碼不能空白或少於八碼 ";
+		}
+		pass2=$("#f_passwd3").val();
+		class_id=pass2.trim();
+		pass_len2=pass2.length;	
+		if(pass_len2==0)
+		{	    
+			msg2+=" 再確認密碼不能空白 ";
+		}
+		 		
+		if (msg0.length==0  && msg1.length==0  &&  msg2.length==0)
+		{			
+			
+			if (pass1 == pass2)
+			{		
+				if (f_class_id<1)
+				{
+					getdata();
+					out="帳號確認";
+					//alert(f_line_id2);					
+					$.post('login.php',
+					{ 
+						f_celephone2:f_celephone2,
+						f_driver_email2	:f_driver_email2,
+						f_passwd2	:f_passwd2,
+						f_line_id2	:f_line_id2,
+						out			:out 
+					},
+					function(data) 
+					{        //回傳資料
+						a=$(data).find("pri_echo").text();						
+						very_code=$(data).find("very_code").text();
+						if (a=="pass")
+						{					
+							very_code=$(data).find("very_code").text();
+							alert("驗證碼："+very_code);
+							//處理認證碼的輸入畫面
+							
+							$('#very_lale').css('visibility','visible');
+							$('#next_step1').css('visibility','hidden');
+							$('#prev_step1 ').css('visibility','hidden');
+							/*
+							$('#step0').css('visibility','hidden');
+							$('#step1').css('visibility','hidden');
+							$('#step2').css('visibility','visible');
+							$('#step3').css('visibility','visible');
+							$('#step4').css('visibility','hidden');*/
+						}
+						else
+						{
+							alert(a);
+						}					
+					});					
+					var body = $("html, body");
+					body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+				}
+				else
+				{
+					
+					$('#step0').css('visibility','hidden');
+					$('#step1').css('visibility','hidden');
+					$('#step2').css('visibility','visible');
+					$('#step3').css('visibility','visible');
+					$('#step4').css('visibility','hidden');
+				}
+			}
+			else
+			{
+			   alert("再確認密碼不正確");
+			}			
+		}
+		else
+		{
+		    alert(msg1+msg2+msg0);
+		}
+	});
+	
+	$("#prev_step2").click(function()
+	{
+		$('#step0').css('visibility','hidden');
+		$('#step1').css('visibility','visible');
+		$('#step2').css('visibility','hidden');
+		$('#step3').css('visibility','hidden');
+		$('#step4').css('visibility','hidden');
+		$('#very_lale').css('visibility','hidden');
+		$('#next_step1').css('visibility','visible');
+		$('#prev_step1 ').css('visibility','visible');
+	});
+	
+	$("#next_step3").click(function()
+	{
+		$('#step0').css('visibility','visible');
+		$('#step1').css('visibility','hidden');
+		$('#step2').css('visibility','hidden');
+		$('#step3').css('visibility','hidden');
+		$('#step4').css('visibility','hidden');
+		$("#f_celephone1").val(f_celephone2);
+		$("#f_passwd1").val(f_passwd2);
+	});
+	
+	if (f_class_id==1)
+	{
+		$("#out1").css('visibility','hidden');
+		$("#out2").css('visibility','hidden');
+		$("#f_sug_driver_id2").attr('disabled', true);
+		$(".func_name").html("| 修改會員資料");		
+	}
+	else
+	{
+		$("#f_sug_driver_id2").attr('disabled', false);
+		$("#out3").css('visibility','hidden');
+		
+	}
+	
+	$("#out3").click(function() 
+	{
+	  msg="";
+	  str=$("#f_driver_id1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg="帳號不能空白  ";
+	   }
+	  str=$("#f_passwd1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg+="密碼不能空白";
+	  }
+	  
+	  if(msg.length==0)
+      {
+		//item = $("input[@type=radio][@checked]").val();
+		
+			sel_type=$('input:radio:checked[name="radio_sel"]').val();
+			sel_type="0";
+			out = "修改會員登入";
+			//alert(f_identity1+" "+f_identity2);   //認證
+			ajax();
+			
+     	} 
+		else
+		{
+		    alert(msg);
+		}
+	 
+      return false;
+    });    
+	  
+	$("#out1").click( function() {
+	  msg="";
+	  str=$("#f_celephone1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg="手機不能空白  ";
+	   }
+	  str=$("#f_passwd1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg+="密碼不能空白";
+	  }
+	  
+	  if(msg.length==0)
+      {
+		//item = $("input[@type=radio][@checked]").val();
+		
+			sel_type=$('input:radio:checked[name="radio_sel"]').val();
+			sel_type="0";
+			out = $('#out1').val();
+			//alert(f_identity1+" "+f_identity2);
+			ajax();
+     	} 
+		else
+		{
+		    alert(msg);
+		}
+	 
+      return false;
+    });  
+	  
+	 $("#close_act").click(function()
+	 { 
+	//新增一筆
+		if (f_class_id==0)
+		{				
+			out="新增司機送出";							
+			
+			ajax();						
+		}
+		else
+		{
+			$("#thanks").html("完成修改會員資料")
+			out="完成修改會員資料";
+			ajax();	
+		}
+		return false;
+    });
+	function getdata()
+	{			
+		f_driver_name   	 =$('#f_driver_name').val(); 
+		f_driver_tel       	 =$('#f_driver_tel').val();
+		f_driver_address     =$('#f_driver_address').val();
+		f_driver_address     =f_driver_address.trim();
+		f_driver_email1  =$('#f_driver_email1').val();
+		f_celephone1   	=$('#f_celephone1').val();	 
+		//必填
+		
+		f_driver_email2  =$('#f_driver_email2').val();
+		f_celephone2   	=$('#f_celephone2').val();	  
+		f_line_id     	=$('#f_line_id2').val(); 
+		f_passwd1      	=$('#f_passwd1').val();
+		f_passwd2      	=$('#f_passwd2').val();
+			
+		
+		
+		//車籍資料	
+		f_contact_number		=$('#f_contact_number').val();			
+		f_registration_number	=$('#f_registration_number').val();								    
+		f_weight				=$('#f_weight').val();				    
+		f_length				=$('#f_length').val();				    
+		f_width					=$('#f_width').val();			    
+		f_height				=$('#f_height').val();							
+		f_property=0;	
+		$("input[name='f_property']:checked").each(function () {f_property = $(this).val()}) ;		
+		f_equitment=[];
+		$("input[name='f_equitment']:checked").each(function ()
+		{
+			a=$(this).val();
+			f_equitment.push(a);
+		});
+	}
+	function ajax()
+	{		
+		getdata();		
+		var data = new FormData();			   
+			  data.append("f_driver_name",f_driver_name);  
+			  data.append("f_driver_tel",f_driver_tel);
+			  data.append("f_driver_address",f_driver_address); 
+			  data.append("f_celephone1",f_celephone1);
+			  data.append("f_celephone2",f_celephone2);			  
+			  data.append("f_driver_email1",f_driver_email1);
+			  data.append("f_driver_email2",f_driver_email2);
+			  data.append("f_contact_number", f_contact_number);		
+			  data.append("f_registration_number",f_registration_number);
+			  data.append("f_weight",f_weight);				
+			  data.append("f_length",f_length);				
+			  data.append("f_width", f_width);				
+			  data.append("f_height",f_height);				
+			  data.append("f_property",f_property);
+			  data.append("f_equitment",f_equitment);
+			  data.append("query_method",query_method);
+			  data.append("sel_type",sel_type);
+			  data.append("f_driver_id_top",f_driver_id_top);
+			  data.append("search_key",search_key);
+			  data.append("f_passwd1",f_passwd1);
+			  data.append("f_passwd2",f_passwd2);
+			  data.append("sno",sno);
+			  data.append("out",out); 
+			fault_flg="f";
+			p_a=[];
+			j=-1;			
+			file_name=["","f_cargo_file1","f_cargo_file2","f_insurance_file","f_vehicle_license_file","f_driving_license_file","f_ID_card_file"];
+			for (p=1;p<=6;p++)
+			{				
+				var x = document.getElementById(file_name[p]).value;				
+				if (x) //有照片
+				{
+					j=j+1;
+					p_a[j]=p;
+					$.each(files[p], function(key, value) //將圖檔的資料  附加到 Data
+					{					
+						data.append(p, value);				
+					});					
+				}
+			}
+			data.append("pic_type" ,p_a );	
+		//真正上傳的動作
+		//	alert(out);
+			var return_val = $.ajax({
+				url: 'login.php',   //搭配的 php 程式
+				type: 'POST',		 //傳檔方式
+				data: data,          //要傳給 php 的所有資料都放在 data裏
+				cache: false,
+				dataType: 'xml',     //回傳資料的格式 可以是 html ,xml,json ... 
+				processData: false,
+				contentType: false, 
+				async: false                
+			}).responseText;
+			pri_echo=$(return_val).find('pri_echo').text();	
+			action=$(return_val).find('action').text();
+			f_driver_id=$(return_val).find('f_driver_id').text();
+			if ( action != "y")
+			{	
+			   alert(pri_echo);
+			}
+			else
+			{				
+				if (out=="登入")
+				{	
+					 document.location.href="login11.htm";					
+				}
+				else
+				{
+					$('#f_driver_id').html(f_driver_id);			
+					$('#step0').css('visibility','hidden');
+					$('#step1').css('visibility','hidden');
+					$('#step2').css('visibility','hidden');
+					$('#step3').css('visibility','hidden');
+					$('#step4').css('visibility','visible');
+				}
+			}
+	} 
+    //--------------------------------------------------------------------------  
+   	$('input[type=file]').on('change', prepareUpload);         
+    function prepareUpload(event)
+    {            
+         file_name=["","f_cargo_pic1","f_cargo_pic2","f_insurance","f_vehicle_license","f_driving_license","f_ID_card"];	
+		
+		if(this.files && this.files[0])
+		{
+			p=this.name;		
+			files[p] = event.target.files;
+			var reader = new FileReader();
+			reader.onload = function (e) 
+			{
+				$("#"+file_name[p]).attr('src', e.target.result);
+			}
+			reader.readAsDataURL(this.files[0]);
+		}		
+    }
+	function print1(data_obj)
+	{	
+		$(data_obj).find("sales").each(                      //回傳處理多筆資料,先把資料全部取出
+		function(i)      //i 傳回陣列索引
+		{	
+			f_driver_address=$(this).find('f_driver_address').text();
+			f_driver_name=$(this).find('f_driver_name').text();
+			f_driver_tel=$(this).find('f_driver_tel').text();				
+			f_driver_email1=$(this).find('f_driver_email').text();	
+			f_driver_email2=$(this).find('f_driver_email').text();	
+			f_driver_id=$(this).find('f_driver_id').text();
+			f_driver_area=$(this).find('f_driver_area').text();	
+			f_celephone1=$(this).find('f_celephone').text();	
+			f_celephone2=$(this).find('f_celephone').text();	
+			f_contact_number=$(this).find('f_contact_number').text();
+			f_registration_number=$(this).find('f_registration_number').text();
+			f_weight=$(this).find('f_weight').text();
+			f_length=$(this).find('f_length').text();			
+			f_width=$(this).find('f_width').text();
+			f_height=$(this).find('f_height').text();
+			f_property=$(this).find('f_property').text();
+			f_c_date=$(this).find('f_c_date').text();
+			sn_index_1=$(this).find('sn_index_1').text();
+			f_equitment=[];
+			$(this).find("f_equitment").each(                      //回傳處理多筆資料,先把資料全部取出
+			function(j)      //j 傳回陣列索引
+			{
+				k=0;				
+				$(this).find('f_equitment_det').each(                      //回傳處理多筆資料,先把資料全部取出
+				function(k)      //k 傳回陣列索引
+				{
+					f_equitment[k]=$(this).text();
+					k=k+1;
+				});
+			}); 
+			//alert(sn_index_1);
+		
+			f_sno=$(this).find('sno').text();			
+		
+		});
+	}
+});
+function enlarge(elmnt)
+{
+	elmnt.width=300;
+}
+function small(elmnt)
+{
+	elmnt.width=80;
+}
+</script>
+</head>
+<body   alink="#ffffff" link="#ffffff" vlink="#ffffff" style="font-family:微軟正黑體">
+	<div id=step0>
+		<table align="center" style="  border: 1px hidden; width: 450px" align="left" cellpadding="10" cellspacing="5" frame="border" rules="hsides">
+			<!--
+			<tr>
+				<td align="left">
+					<b>認證種類</b>
+				</td>
+				
+				<td align="left">
+				<form   NAME="my_form">
+				    <INPUT TYPE="radio"  NAME="radio_sel" value="0" checked onClick="choice(this.form)">手機認證<P>
+					<INPUT TYPE="radio"  NAME="radio_sel" value="1"         onClick="choice(this.form)">EMAIL認證
+				</form>	
+				</td>
+			</tr>
+			-->
+			<form  method="post" NAME="my_form2">
+				<tr>
+				<td align="left">
+					<b id="type1">手機號</b>
+				</td>
+				
+				<td align="left">
+					<input type="text" name="celephone" size="30" id="f_celephone1"  style="font-size:16px" value="">
+				</td>				
+				</tr>
+				<tr>
+				<td  align="left" >密碼:</font></td>
+					<td><input type=password id="f_passwd1" size=15 maxlength=18 style="font-size:16px" value=""></td>
+				</tr>
+			</form>
+		</table>
+		<div id=text0>
+			<input type="button" id=out1 value="登入" class=fontstyle3 style="border:1px;background-color:#ffd87d;width:80px;height:30px">
+			<input type="button" id=out2 value="註冊" class=fontstyle3 style="border:1px;background-color:#ccc;width:80px;height:30px">        
+			<input type="button" id=out3 value="修改會員資料" class=fontstyle3 style="position:absolute;border:1px;background-color:#ffd87d;width:140px;height:30px;left:25px">        
+			
+		</div>
+		
+	</div>
+	<div id=step1>
+	
+		<div class=text  style="font-family:華康中圓體">
+			<font size="5px" color="#ffffff" class=func_name>| 會員註冊</font>
+		</div>
+		<table align="center" style="border: 1px solid rgb(182,182,182); height: 400px; width: 520px" align="left" cellpadding="10" cellspacing="5" frame="border" rules="none">
+			<tr>
+				<th colspan="2" align="left">
+					<font color="#ff0000" size="2">
+						(*必填 )
+					</font>
+				</th>
+			</tr>
+			<tr>
+				<td align="center">
+					<font color="#ff0000">*</font>
+					手機號碼</td>				
+				<td align="left"><input type="text" name="手機號碼" size="20" id=f_celephone2 value="0972200232"></td>
+			</tr>			
+			<tr>		
+				<td align="center"><font color="#ff0000"></font>電子郵件</td>				
+				<td align="left"><input type="email" name="電子郵件" size="20" id=f_driver_email2 value="wane2@nutc.edu.tw"></td>
+			</tr>			
+			<tr>
+				<td align="center"><font color="#ff0000"></font>LINE ID</td>				
+				<td align="left"><input type="text" name="LINE ID" size="20" id=f_line_id2></td>
+			</tr>
+			<tr>
+				<td align="center">司機名字</td>				
+				<td align="left"><input type="text" size=10 id=f_driver_name value=" "></td>
+			</tr>
+			<tr>
+				<td align="center">司機住址</td>				
+				<td align="left"><input type="text" size=30 id=f_driver_address value="台中"></td>
+			</tr>
+			<tr>
+				<td align="center">連絡電話</td>				
+				<td align="left"><input type="text" size=10 id=f_driver_tel value="04-"></td>
+			</tr>							
+			<tr>
+				<td align="center">密碼</td>				
+				<td align="left"><input type="password" name="密碼" size="20" id=f_passwd2 placeholder="輸入8~20碼英數字" value="12345678"></td>
+			</tr>			
+			<tr>
+				<td align="center">確認密碼</td>				
+				<td align="left"><input type="password" name="確認密碼" size="20" id=f_passwd3 value="12345678"></td>
+			</tr>
+			<tr>
+				<th colspan="2">
+				</th>
+			</tr>			
+			<tr >
+				<th colspan="2" align="center" >
+				<span id=agree1>
+					<input type="checkbox" value="agree" name="W" onclick="chk_read5()"  >
+					我已詳閱並同意
+					<a href="#" style="color:blue;">
+						《回頭車服務條款》
+					</a>
+					</span>
+				</th>												
+			</tr>
+			<tr>
+				<th colspan="2" align="center">					
+			<input type="button" value="回上一頁" id=prev_step1  style="border:3px;background-color:#ffd87d;width:80px;height:25px">
+			<input type="button" value="下一步" id=next_step1 style="border:3px;background-color:#ffd87d;width:70px;height:25px"><br>
+			 <span id=very_lale style="visibility:hidden">驗證碼<input type=text  value="" id=very_code size=3>
+			 <input type="button" value="驗證碼確認" id=next_step11 style="border:3px;background-color:#ffd87d;width:70px;height:25px"><br>
+			</span>
+		
+		    
+				</th>
+			</tr>	
+									
+		</table>						
+	
+	
+		<div id=texttarea style="overflow: scroll; height:25vh; width: 520px">
+
+		<font style="background-color:#ccc;">
+			<b>服務條款</b>
+		</font>
+		
+		<br>
+		
+		<font size="2">隱私權</font>
+		
+		<br>
+		
+		<font color="#636363" size="2">
+			歡迎您加入成為會員，會員服務(以下稱會員服務)係由『科技股份有限公司』(以下稱本公司)所建置提供，請詳細閱讀以下權益條款，本條款訂立的目的，是為了保護本公司以及會員的利益，並作為本公司與會員間會員服務提供權利義務關係之依據，當您完成相關基本資料(含姓名、身分證字號、電子郵件地址、聯絡電話、地址、出生日期、性別等資料)之提供並完成註冊手續，即正式成為本公司會員，並於開始使用本公司所提供之會員服務時，即視為已知悉及完全同意本條款的所有約定：
+			<br>
+			<br>
+			<b>壹、會員服務及權利義務</b>
+			<br>
+				1.	本公司於完成並確認您的會員資格後，本公司將提供會員服務內容有：七天送貨到府或到店自
+				取、七天商品鑑賞期(此鑑賞內只提供商品或服務之鑑賞參考，而非商品或服務的使用)、個人消
+				費記錄查詢，或其他未來可能新增之一般會員服務。為充分服務會員，會員同意本公司以信
+				函、寄交之型錄或透過郵件、通信網路等，不定期告知本公司及關係企業各項活動資訊及郵購
+				商品。
+			<br>
+				2.若您未滿二十歲，應於您的法定代理人閱讀、瞭解並同意本服務條款之所有內容及其後修改變
+				更後，方得註冊使用或繼續使用。當您使用或繼續使用本公司所提供之任一服務時，即表示您
+				的法定代理人已閱讀、瞭解並同意接受本服務條款之所有內容及其後修改變更。
+			<br>
+				3.	本公司提供會員服務之期間，係指您完成基本資料提供建檔並完成註冊程序後，本公司於完成
+				相關系統設定、使會員服務達於可供使用之日起，至會員向本公司請求刪除其全部個人資料而
+				經本公司同意終止服務之日止，或本公司因會員有違反本權益條款而為主動終止服務之日止。
+			<br>
+				4.	為取得會員資格需經完整正確之資料提供及註冊手續，並提供或填入完整、而且正確的資料。
+				如拒絕提供基本資料或未完成註冊，將無法享有會員服務。
+			<br>
+				5.	本公司提供之會員服務、功能以及其他一切因會員身分得享有之權益，均仍屬本公司或其他合
+				法權利人所有，會員除僅得於服務期間內依本條款之約定為使用外，均不得以任何方式將其轉
+				讓、移轉、出租或出借予其他任何第三人，會員就會員服務所為之任何轉讓、移轉、出租或出
+				借予其他任何第三人之行為，本公司將有權終止。
+			<br>
+				6.	會員服務僅依當時所提供之相關權益、功能及狀態提供服務；本公司保留新增、修改、取消
+				會員服務或系統功能之全部之權利，其新修正內容將適時公布於本網站，不另外個別通知會
+				員。會員並同意遵守新修正之條款。
+			<br>
+				7.	註冊會員資料時，可申請一組個人使用者帳號及專屬密碼，而使用會員服務的過程中，會員必
+				須為經由該帳號和密碼進行所有購物行為；另所有使用其帳號和密碼進入之行為，均視為該帳
+				號及密碼持有人之行為，會員應對該等行為負責。
+			<br>
+				8.	會員同意並瞭解本公司於各通路所刊播之任何廣告及促銷資訊，其性質屬「要約之引誘」，本公
+				司有權拒絕會員之要約。且會員同意並瞭解，本公司於各通路所刊播之任何廣告及促銷資訊有
+				所錯誤者，本公司將以適當方式為更正之通告，如會員要求本公司履行更正前之資訊內容者，
+				本公司有權拒絕之，會員不得向本公司為任何之請求。
+			<br>
+			<br>
+			<b>貳、拒絕或終止會員服務</b>
+			<br>
+				會員應嚴防其個人資料、付款資料（包含信用卡資料）、使用者帳號和密碼外洩。倘有外洩而遭
+				他人留用、冒用者，會員應自負法律責任。會員使用各項專屬權益時，請清楚告知會員帳號及
+				相關資料，若資料錯誤，本公司於會員之個人資料有受冒用而產生損失之風險時，為維護會員
+				權益，得停止會員服務。會員若有包括大量訂購惡意銷退、濫用本公司回饋機制、拒絕償還，
+				或違反會員服務之精神或本條款者，本公司均有權力終止及拒絕提供會員服務，您承認並同意
+				本公司依本條款任何規定對會員提供之服務，無需進行事先通知即得終止，且會員服務之終
+				止，本公司對會員或任何第三人均不承擔任何責任。
+			<br>
+			<br>
+			<b>參、智慧財產權</b>
+			<br>
+				本公司之網站及相關通路所使用之軟體或程式、網站上所有內容，包括但不限於著作、圖片、
+				檔案、資訊、資料、網站架構、網站畫面的安排、網頁設計，均由本公司或其他權利人依法擁
+				有其智慧財產權，包括但不限於商標權、專利權、著作權、營業秘密與專有技術等。任何人不
+				得逕自使用、修改、重製、公開播送、改作、散布、發行、公開發表、進行還原工程、解編或
+				反向組譯。若您欲引用或轉載前述軟體、程式或網站內容，必須依法取得本公司或其他權利人
+				的事前書面同意。同時會員必須遵守商標法、著作權法、電信法、個人資料保護法及其他相關
+				法令之規定，如有違反，您應對本公司負損害賠償責任（包括但不限於訴訟費用及律師費用
+				等）。
+			<br>
+			<br>
+			<b>肆、回饋金說明</b>
+			<br>
+				***
+			<br>
+			<br>
+			<b>伍、客戶資料收集說明</b>
+			<br>
+				依據法務部頒佈之「個人資料保護法之特定目的及個人資料之類別」，本公司蒐集、處理、利用
+				及保有您個人資料之種類列示如下：
+			<br>
+				1.	Ｃ○○一辨識個人者。(姓名、職稱、住址、工作地址、以前地址、住家電話號碼、行動電
+				話、網路平臺申請之帳號、通訊及戶籍地址、電子郵遞地址及其他任何可辨識資料本人者等。)
+			<br>
+				2.	Ｃ○○二辨識財務者。(例如：金融機構帳戶之號碼與姓名、信用卡或簽帳卡之號碼、保險單
+				號碼、個人之其他號碼或帳戶等。)
+			<br>
+				3.	Ｃ○○三政府資料中之辨識者。(例如：身分證統一編號、護照號碼等。)
+			<br>
+				4.	Ｃ○一一個人描述。(例如：年齡、性別、出生年月日、出生地、國籍、聲音等。)
+			<br>
+				5.	Ｃ○一二身體描述。(例如：身高、體重、血型等。)
+			<br>
+				6.	Ｃ○二一家庭情形。(例如：結婚有無、配偶或同居人之姓名、前配偶或同居人之姓名、結婚
+				之日期、子女之人數等。)
+			<br>
+				7.	Ｃ○二三家庭其他成員之細節。(例如：子女、受扶養人、家庭其他成員或親屬、父母等。)
+			<br>
+				8.	Ｃ○三一住家及設施。(如：住所地址)
+			<br>
+				9.	Ｃ○三三移民情形。(例如：護照)
+			<br>
+				10.	Ｃ○三四旅行及其他遷徙細節。(例如：旅行細節)
+			<br>
+				11.	Ｃ○三六生活格調。(例如：使用消費品之種類及服務之細節、個人或家庭之消費模式等。)
+			<br>
+				12.	Ｃ○三八職業。(例如：學校校長、民意代表或其他各種職業等。)
+			<br>
+				13.	Ｃ○八一收入、所得、資產與投資。
+			<br>
+				14.	Ｃ○九三財務交易。(例如：收付金額、信用額度、保證人、支付方式、往來紀錄、保證金或
+				其他擔保等。)
+			<br>
+				15.	Ｃ一○二約定或契約。(例如：關於交易、商業、法律或其他契約、代理等。)
+			<br>
+				16.	Ｃ一三二未分類之資料。(例如：無法歸類之信件、檔案、報告或電子郵件等。)
+				我們僅會在提供商品銷售、金融交易授權、物流配送、廣告行銷、市場分析、贈獎活動、會員
+				權益通知及相關服務時，為作業之必要運用您的個人資料。
+			<br>
+			<br>
+			<b>陸、準據法及管轄法院</b>
+			<br>
+				本服務條款之解釋與適用，以及與本服務條款有關之爭議，均應依照中華民國法律予以處理，
+				並以臺灣台中地方法院為第一審管轄法院。
+		</font>
+		</div>
+	</div>
+	<div id=step2>
+		<table align="left" border=1   cellpadding="10" cellspacing="5" width=680 ><br>
+			<tr>
+				<td align=middle width=200 >					
+					車輛性質
+				</td>				
+				<td align = "middle" colspan = 3>		
+					<input type="radio"  name="f_property" value=1>1.靠行&emsp;
+					<input type="radio"  name="f_property" value=2>2.貨運公司&emsp;
+					<input type="radio"  name="f_property" value=3>3.搬家公司					
+				</td>
+			</tr>
+			<tr>
+				<td align=middle>					
+					綁定電話
+				</td>				
+				<td align = "middle">		    
+					<input type="text" size=10 id=f_contact_number>
+				</td>				
+				<td align=middle  width=200px >綁定車牌號碼</td>
+				<td align = "middle" >
+					<input type="text" size=10 id=f_registration_number>
+				</td>
+			</tr>
+			<tr>
+				<td align=left>
+					重量限制(公斤)
+				</td>
+				<td align = "middle">				    
+					<input type=number  min=1 max=9000 size=2 id=f_weight>
+				</td>
+
+				<td align=left>
+					長度限制(公分)
+				</td>
+				<td align = "middle">				    
+					<input type=number min=10 max=50000 id=f_length>
+				</td>
+			</tr>
+			
+			<tr> 			
+				<td align=left>
+					寬度限制(公分)
+				</td>
+				<td align = "middle">				    
+					<input type=number min=10 max=50000 id=f_width>
+				</td>
+				<td align=left>
+					高度限制(公分)
+				</td>
+				<td align = "middle">				    
+					<input type=number min=10 max=50000 id=f_height>
+				</td>
+				
+			</tr>
+					
+			<tr>
+				<td colspan = "1" align = "center">
+					本車配備
+				</td>
+				<td colspan = "3">
+					<input type="checkbox" name=f_equitment value=1>司機協助手動搬運&emsp;
+					<input type="checkbox" name=f_equitment value=2>隨身助手&emsp;
+					<input type="checkbox" name=f_equitment value=3>低溫冷藏<br>
+					<input type="checkbox" name=f_equitment value=4>升降尾門&emsp;
+					<input type="checkbox" name=f_equitment value=5>可以推高機裝卸<br>
+					<input type="checkbox" name=f_equitment value=6>自備拖板車&emsp;
+					<input type="checkbox" name=f_equitment value=7>自備手推車&emsp;
+					<input type="checkbox" name=f_equitment value=8>提供吊桿
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id=step3>
+		<table  border=1   style="position:relative" width=680>
+			<tr>
+				<td align = "center" colspan = "4">
+					司機資料
+				</td>
+			</tr>
+			<tr>
+				<td align=middle  width=200px>車輛照片1</td>					        
+				<td><input type=file id="f_cargo_file1" name=1>
+					<img  width=80 id=f_cargo_pic1 onclick="enlarge(this)" onmouseout="small(this)">
+				 </td>
+				<td align=middle  width=200px>車輛照片2 </td>
+				<td><input type=file id="f_cargo_file2" name=2>
+					<img  width=80 id=f_cargo_pic2 onclick="enlarge(this)" onmouseout="small(this)">
+				</td>				
+			</tr>
+			<tr>
+				<td align=middle  width=200px>保險卡</td>					
+				<td><input type=file id="f_insurance_file" name=3 > 
+					<img  width=80 id=f_insurance onclick="enlarge(this)" onmouseout="small(this)">
+				</td>					
+				<td align=middle  width=200px>行車執照</td>
+				<td><input type=file id="f_vehicle_license_file" name=4> 
+					<img  width=80 id=f_vehicle_license onclick="enlarge(this)" onmouseout="small(this)">
+				</td>
+			</tr>				
+			<tr>
+				<td align=middle  width=200px>駕駛執照</td>
+				<td><input type=file id="f_driving_license_file" name=5> 
+					<img  width=80 id=f_driving_license onclick="enlarge(this)" onmouseout="small(this)">
+				</td>
+				<td align=middle  width=200px>身分證</td>
+				<td><input type=file id="f_ID_card_file"  name=6>
+					<img  width=80 id=f_ID_card onclick="enlarge(this)" onmouseout="small(this)">
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<input type="button" value="回上一步" id=prev_step2  style="border:3px;background-color:#ffd87d;width:80px;height:25px">
+					
+						<input type="button" value="送出" id=close_act style="border:3px;background-color:#ffd87d;width:100px;height:25px">
+					
+				</th>
+			</tr>						
+		</table>
+	</div>
+	<div id=step4>
+		<table align="center" style="border: 1px solid rgb(182,182,182); height: 200px; width: 450px" align="left" cellpadding="1" cellspacing="1" frame="border" rules="none">
+			<tr>
+				<td align="center">
+					<span   style="color:#ff0000;font-size:20px">您的會員編號：</span><br><span id=f_driver_id  style="color:0000b3;font-size:24px"></span>
+				</td>
+			</tr>			
+			<tr>
+				<td align="center"><font color="#ff0000"><b id=thanks>謝謝您的註冊</b></font></td>
+			</tr>
+			<tr>
+				<th align="center"><input type="button" value="回認證首頁" id="next_step3" style="border:3px;background-color:#ffd87d;width:90px;height:25px">
+				</th>
+			</tr>										
+		</table>						
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,1502 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf8>
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
+<title>登入</title>
+<link rel=StyleSheet type=text/css href=hlg_header.css>
+<style type="text/css">
+
+#box1{
+	 position: absolute;
+   width:700px;
+   border:0px solid blue;
+   padding:10px;   
+   top: 60px;
+   left:80px;
+   z-index:1;
+}
+
+#box2{
+   position: absolute;
+   width:500px;
+   border:0px solid blue;
+   padding:10px;
+   top: 0px;
+   left:0px;
+   visibility:hidden;
+   z-index:1;
+}
+
+#step1
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:70vh;
+	z-index:1;		
+}
+#step2
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:70vh;
+	z-index:1;
+	visibility:hidden;
+}
+#step3
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:70vh;
+	z-index:1;
+	visibility:hidden;
+}
+.header
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:70px;
+	background-color:#e80113;
+	z-index:2;	
+}	
+.back
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:70px;
+	left:0px;
+	width:100vw;
+	height:14vh;
+	background-color:#e9ffff;
+	z-index:2;	
+}		
+
+#block0
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:30vh;
+	left:35vw;
+	width:30vw;
+	height:250px;
+	background-color:#ffffff;
+	z-index:1;
+}
+#text0
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:48vh;
+	left:43vw;
+	width:20vw;
+	height:10vw;
+	z-index:1;
+}
+.block
+{
+	position:fixed;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:13vh;
+	left:33vw;
+	width:34vw;
+	height:10vh;
+	background-color:#ffffff;
+	z-index:2;
+}
+#table1
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:28vh;
+	left:31vw;
+	width:100vw;
+	height:70vw;
+	background-color:#ffffff;
+	z-index:1;
+}
+#texttarea
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:80vh;
+	left:31vw;
+	z-index:1;
+}
+				
+a{text-decoration:none}
+.text
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:5px;
+	left:5px;
+	width:300px;
+	height:20px;
+	z-index:1;
+}			
+	
+
+#table2
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:28vh;
+	left:31vw;
+	width:100vw;
+	height:70vw;
+	background-color:#ffffff;
+	z-index:1;
+}
+#table3
+{
+	position:absolute;
+	margin:0px;
+	border:0px;
+	padding:0px;
+	top:28vh;
+	left:31vw;
+	width:100vw;
+	height:70vw;
+	background-color:#ffffff;
+	z-index:1;
+}
+
+#flash{
+	position: absolute;
+	top: 0px;
+	left:0px;
+	z-index:1;
+}
+.fontstyle1
+{
+	font-size: 24px;
+	face:"華康皮皮體w5";
+ }
+.fontstyle2
+{
+	font-size: 24px;
+	face:"華康皮皮體w5";
+	color:#ffffff;
+ }
+ .fontstyle3
+{
+	font-size: 20px;
+ }
+</style> 
+<script src="jquery-2.0.3.js"></script>
+<script language="JavaScript" charset="utf8" src="hlg_header.js"></script>
+<script language="javascript">
+function getArgs() {
+//取得傳來的參數
+//f_usr_id 是 使用者帳號  f_cust_id是 會員編號
+   var args = new Object(); 
+   //in this case: 
+   //location = b.htm?aa=1&bb=abc&cc=測試" 
+   //locatin.search = ?aa=1&bb=abc&cc=測試" 
+   var query = location.search.substring(1); //aa=1&bb=abc&cc=測試" 
+   var pairs = query.split("&"); 
+   for(var i=0;i<pairs.length;i++) { 
+      var pos = pairs[i].indexOf("="); 
+      if (pos == -1) continue; 
+      var argname = pairs[i].substring(0,pos); 
+      var value = pairs[i].substring(pos+1); 
+      args[argname] = decodeURIComponent(value); 
+   } 
+   return args; 
+} 
+var args = getArgs(); 
+var f_class_id=0;
+
+if (args.prod_class)
+{ 
+  // alert("prod_class=" + args.prod_class); 
+   f_class_id=args.prod_class;
+   
+}
+else
+{
+f_class_id=0;
+}
+function printpage(myDiv)
+{
+	var newstr = document.getElementById(myDiv).innerHTML;
+	var oldstr = document.innerHTML;
+	var WinPrint = window.open();
+	WinPrint.document.body.innerHTML = newstr;
+	WinPrint.window.print();
+	WinPrint.close();
+	document.innerHTML = oldstr;
+	return false;
+}
+
+</script>
+
+<script language="javascript">
+var sel_a=[];
+var sel=0;
+var read5_flg="f";
+var sno=0;
+$(function()
+{
+	$(".menu_2").css({"visibility": "hidden"});
+	$("#grid3").css({"visibility": "hidden"});
+	var f_user_id1;
+    var f_passwd1;
+	
+	var f_identity1;
+	var f_user_id2;     
+	var f_passwd2;  
+    var f_passwd3;     
+	var f_user_name2;   
+	var f_id2;      //身分證    
+	var f_birthday2;    
+	var f_celephone2;   
+	var f_address2;     
+	var f_line_id2 ;    
+	var f_sug_user_id2; 
+	var f_email2;
+	var sel_type;
+    var out;
+	
+	if (f_class_id==1)
+	{
+		$("#out4").css('visibility','hidden');
+		$("#out5").css('visibility','hidden');
+		$("#f_sug_user_id2").attr('disabled', true);
+		$(".func_name").html("| 修改會員資料");		
+	}
+	else
+	{
+		$("#f_sug_user_id2").attr('disabled', false);
+		$("#out3").css('visibility','hidden');
+		
+	}
+	
+	$("#out3").click(function() 
+	{
+	  msg="";
+	  str=$("#f_user_id1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg="帳號不能空白  ";
+	   }
+	  str=$("#f_passwd1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg+="密碼不能空白";
+	  }
+	  
+	  if(msg.length==0)
+      {
+		//item = $("input[@type=radio][@checked]").val();
+		
+			sel_type=$('input:radio:checked[name="radio_sel"]').val();
+			out = "修改會員登入";
+			//alert(f_identity1+" "+f_identity2);   //認證
+			ajax();
+			
+     	} 
+		else
+		{
+		    alert(msg);
+		}
+	 
+      return false;
+    });    
+	  
+	$("#out4").click( function() {
+	  msg="";
+	  str=$("#f_user_id1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg="帳號不能空白  ";
+	   }
+	  str=$("#f_passwd1").val();
+	  str=str.trim();
+	  if(str.length==0)
+      {	    
+		msg+="密碼不能空白";
+	  }
+	  
+	  if(msg.length==0)
+      {
+		//item = $("input[@type=radio][@checked]").val();
+		
+			sel_type=$('input:radio:checked[name="radio_sel"]').val();
+			out = $('#out4').val();
+			//alert(f_identity1+" "+f_identity2);
+			ajax();
+     	} 
+		else
+		{
+		    alert(msg);
+		}
+	 
+      return false;
+    });  
+	  
+	
+	$("#out5").click(function()
+	{  
+	  // box1 要隱藏 box2 顯示	 
+		$('#box1').css('visibility','hidden');
+		$('#box2').css('visibility','visible');	
+		$('#step1').css('visibility','visible');
+		//$("#sugest1").css('visibility','visible');
+		//$("#sugest2").css('visibility','visible');
+		$('#f_user_id1').val($('#f_email2').val());
+		$('#f_email2').val('');
+		$('#f_celephone2').val('');	  
+		$('#f_line_id2').val(''); 
+		$('#f_passwd2').val('');
+		$('#f_passwd3').val('');		
+		$('#f_user_name2').val('');		
+		//$('#f_id2').val();
+		$('#f_tel2').val('');
+		$('#f_birthday2').val('');
+		$('#f_sug_user_id2').val('');
+		$('#f_address2').val('');		
+    });
+
+
+	$("#prev_step1").click(function()
+	{
+		$("#box1").css({"visibility": "visible"});
+		$("#step1").css({"visibility": "hidden"});
+		$("#step2").css({"visibility": "hidden"});
+		$("#step3").css({"visibility": "hidden"});
+		var body = $("html, body");
+		body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+	});
+	$("#next_step1").click(function()
+	{
+		//驗證
+		msg0="";
+		if (read5_flg != "t" &&  f_class_id==0)
+		{
+			 msg0="  未閱讀服務條款";
+        }	
+//alert(msg0+f_class_id);		
+		getdata();
+		msg1="";
+		msg2="";
+		str=$("#f_email2").val();
+		str=str.trim();
+		len1=str.length;
+		if (len1>0)
+		{
+			reg = /^[^\s]+@[^\s]+\.[^\s]{2,3}$/;
+			if ( !reg.test(str)) 
+			{
+				msg1=" E-Mail 格式錯誤! ";
+			}
+		}
+		str=$("#f_celephone2 ").val();
+		str=str.trim();
+		len2=str.length;
+		str=$("#f_line_id2").val();
+		str=str.trim();		
+		len3=str.length;
+		tot_len=len1+len2+len3;	
+		if(tot_len==0)
+		{	    
+			msg1=" Email 或 手機 或 Line_id 一定擇一填寫  ";
+		}	 
+		
+		pass1=$("#f_passwd2").val();
+		pass1=pass1.trim();
+		pass_len1=pass1.length;
+		
+		if(pass_len1<8)
+		{	    
+			msg2=" 密碼不能空白或少於八碼 ";
+		}
+		pass2=$("#f_passwd3").val();
+		class_id=pass2.trim();
+		pass_len2=pass2.length;	
+		if(pass_len2==0)
+		{	    
+			msg2+=" 再確認密碼不能空白 ";
+		}			
+		if (msg0.length==0  && msg1.length==0  &&  msg2.length==0)
+		{			
+			if (pass1 == pass2)
+			{		
+				if (f_class_id<1)
+				{
+					getdata();
+					out="帳號確認";
+					alert(f_email2);
+					$.post('login.php',
+					{ 
+						f_passwd2	:f_passwd2,
+						f_line_id2	:f_line_id2, 
+						f_email2	:f_email2,
+						f_celephone2:f_celephone2,
+						out			:out 
+					},
+					function(data) 
+					{        //回傳資料
+						a=$(data).find("pri_echo").text();
+						alert(a);
+						if (a=="pass")
+						{					
+							$("#step1").css({"visibility": "hidden"});
+							$("#step2").css({"visibility": "visible"});
+							$("#step3").css({"visibility": "hidden"});
+						}
+						else
+						{
+							alert(a);
+						}					
+					});					
+					var body = $("html, body");
+					body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+				}
+				else
+				{
+					$("#step1").css({"visibility": "hidden"});
+					$("#step2").css({"visibility": "visible"});
+					$("#step3").css({"visibility": "hidden"});
+				}
+			}
+			else
+			{
+			   alert("再確認密碼不正確");
+			}			
+		}
+		else
+		{
+		    alert(msg1+msg2+msg0);
+		}
+	});
+	$("#next_step2").click(function()
+	{
+		$("#step1").css({"visibility": "hidden"});
+		$("#step2").css({"visibility": "hidden"});
+		$("#step3").css({"visibility": "visible"});
+		body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+	});
+	$("#prev_step2").click(function()
+	{
+		$("#step1").css({"visibility": "visible"});
+		$("#step2").css({"visibility": "hidden"});
+		$("#step3").css({"visibility": "hidden"});
+		var body = $("html, body");
+		body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+	});
+	$("#next_step3").click(function()
+	{
+		if(f_class_id<1)
+		{
+			$("#step1").css({"visibility": "hidden"});
+			$("#step2").css({"visibility": "hidden"});
+			$("#step3").css({"visibility": "hidden"});	
+			$("#box2").css({"visibility": "hidden"});
+			$("#box1").css({"visibility": "visible"});
+			body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+		}
+		else
+		{
+			history.go(-1);
+		}
+	});
+	$("#prev_step3").click(function()
+	{
+		$("#step1").css({"visibility": "hidden"});
+		$("#step2").css({"visibility": "visible"});
+		$("#step3").css({"visibility": "hidden"});
+		var body = $("html, body");
+		body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+	});
+	$("#home_page").click(function()
+	{
+		history.go(-1);
+		
+	});
+function getdata()
+{ 
+	f_identity1		='1';	    
+	f_user_id1       =$('#f_user_id1').val();
+	f_passwd1 		=$('#f_passwd1').val(); //取得dom內 #f_passwd 的值	
+
+//必填	   
+	f_email2       	=$('#f_email2').val();
+	f_celephone2   	=$('#f_celephone2').val();	  
+	f_line_id2     	=$('#f_line_id2').val(); 
+	f_passwd2      	=$('#f_passwd2').val();
+	f_passwd3      	=$('#f_passwd3').val();
+	f_user_name2   	=$('#f_user_name2').val();  
+//選項	   
+
+	f_id2          	="" ;          //$('#f_id2').val();
+	f_tel2       	=$('#f_tel2').val();
+	f_birthday2    	=$('#f_birthday2').val();
+	f_sug_user_id2 	=$('#f_sug_user_id2').val();
+	f_address2     	=$('#f_address2').val();
+	sel_type=$('input:radio:checked[name="radio_sel"]').val();
+}
+function ajax()
+	{
+	    
+		getdata();
+		//alert(sno);
+	    $.post('login.php',
+        { 
+		  f_user_id1    :f_user_id1,                  
+		  f_passwd1		:f_passwd1,			   
+		  f_passwd2     :f_passwd2,  
+		  f_user_name2  :f_user_name2,  
+		  f_id2         :f_id2,  
+		  f_birthday2   :f_birthday2,  
+		  f_celephone2  :f_celephone2, 
+		  f_tel2      	:f_tel2 ,
+		  f_address2    :f_address2,  
+		  f_line_id2    :f_line_id2,  
+		  f_sug_user_id2:f_sug_user_id2,
+		  f_email2      :f_email2, 
+		  f_identity1	:f_identity1,
+		  sel_type      :sel_type,
+		  sno           :sno,
+          out 			:out 
+        },
+        function(data) 
+		{        //回傳資料
+		switch(out)
+        {
+		    case '修改會員登入':
+			    //修改會員的認證
+				pri_echo=$(data).find('pri_echo').text();
+				if ( pri_echo == "n")
+				{
+				    sel_a[0]=" Email錯誤";
+					sel_a[1]=" Line錯誤";
+					sel_a[2]=" 手機號碼錯誤";
+				   
+				   alert("您還不是會員！  "+sel_a[sel]);
+				}
+				else
+				{
+				   // alert($(data).find('pri_echo').text());					
+					f_cust_id=$(data).find('f_cust_id').text();
+					f_cust_mail=$(data).find('f_cust_mail').text();
+					f_line_id=$(data).find('f_line_id').text();
+					f_celephone=$(data).find('f_celephone').text();
+					f_passwd=$(data).find('f_passwd').text();
+					f_cust_name=$(data).find('f_cust_name').text();					
+					f_birthday=$(data).find('f_birthday').text();
+					yy=f_birthday.substr(0 ,4)
+					mm=Number(f_birthday.substr(5 ,2));
+					dd=Number(f_birthday.substr(8 ,2));
+									
+					$('#bir_year').val(yy);
+					$('#bir_month').val(mm);
+					$('#bir_day').val(dd);	
+					
+					
+					
+					f_cust_tel=$(data).find('f_cust_tel').text();
+					f_cust_address=$(data).find('f_cust_address').text();	
+					f_introduction=$(data).find('f_introduction').text();					
+					sno=$(data).find('sno').text();
+					$("#f_cust_id").val(f_cust_id);					
+					$("#f_email2").val(f_cust_mail);
+					$("#f_line_id2").val(f_line_id);
+					$("#f_celephone2").val(f_celephone);
+					$("#f_passwd2").val(f_passwd);
+					$("#f_passwd3").val(f_passwd);
+					$("#f_user_name2").val(f_cust_name);					
+					$("#f_birthday2").val(f_birthday);
+					$("#f_tel2").val(f_cust_tel);
+					$("#f_address2").val(f_cust_address);
+					$("#f_sug_user_id2").val(f_introduction);										
+					 $('#box1').css('visibility','hidden');
+					 $('#box2').css('visibility','visible');	
+					 $('#step1').css('visibility','visible');	
+					 $("#texttarea").css('visibility','hidden');
+					 $("#agree1").css('visibility','hidden');
+					// $("#sugest1").css('visibility','hidden');
+					// $("#sugest2").css('visibility','hidden');
+		  
+				}
+                break;
+			case '登入':
+				//登入系統的認證
+                pri_echo=$(data).find('pri_echo').text();	
+						
+				if ( pri_echo != "y")
+				{
+				    sel_a[0]=" Email錯誤";
+					sel_a[1]=" Line錯誤";
+					sel_a[2]=" 手機號碼錯誤";
+				   
+				   alert("您還不是會員！  "+pri_echo);
+				}
+				else
+				{
+				  history.go(-1);				  
+				}
+                break;
+			case '送出':   //註冊
+			   // alert($(data).find('pri_echo').text());
+			   $msg=$(data).find('pri_echo').text();
+			   if ($msg=="會員註冊完成")
+			   {
+					f_cust_id=$(data).find('f_cust_id').text();					
+					str=$("#f_email2").val();
+					str=str.trim();
+					len1=str.length;				
+					str=$("#f_celephone2").val();
+					str=str.trim();
+					len2=str.length;
+					str=$("#f_line_id2").val();
+					str=str.trim();		
+					len3=str.length;
+					if(len3>0)
+					{				
+						$('#f_user_id1').val($("#f_line_id2").val());
+					}
+					if(len2>0)
+					{				
+						$('#f_user_id1').val($("#f_celephone2").val());
+					}
+					if(len1>0)
+					{				
+						$('#f_user_id1').val($("#f_email2").val());
+					}				
+					//alert(f_cust_id);
+					$('#f_cust_id').html(f_cust_id);					
+					$("#box1").css('visibility','hidden');
+					$("#step1").css({"visibility": "hidden"});
+					$("#step2").css({"visibility": "hidden"});
+					$("#step3").css({"visibility": "visible"});
+				}
+				else
+				{
+					alert($msg + " 無法註冊");
+				}				
+                break; 
+			 case '完成修改會員資料' :
+			    f_cust_id=$(data).find('f_cust_id').text();
+				$('#next_step3').val("回購物網");
+				
+			    $("#box1").css('visibility','hidden');				
+				$("#step1").css({"visibility": "hidden"});
+				$("#step2").css({"visibility": "hidden"});
+				$("#step3").css({"visibility": "visible"});
+				$('#f_cust_id').html(f_cust_id);
+				
+				body.stop().animate({scrollTop:0}, 500, 'swing', function() {});
+			 break; 
+           }
+        } 
+      );
+	}
+        
+    $("#close_act").click(function()
+	{ 
+		msg="";
+		str=$("#f_user_name2").val();
+		str=str.trim();
+		
+		if(str.length==0)
+		{	    
+			msg="姓名不能空白 ";
+			alert(msg);
+		}
+		else
+		{	
+			msg="";
+			str=$("#f_sug_user_id2").val();
+			str=str.trim();
+			
+		    if (f_class_id==0)
+			{
+				if(str.length>0)
+				{	    
+					f_sug_user_id2=str;
+					$.post('login.php',
+					{
+						f_sug_user_id2: f_sug_user_id2, 			
+						out : "member_check"
+					}, 
+				   function(data)  //回傳資料放在 data
+					{ 
+						res=$(data).find("pri_echo").text();	    
+						f_cust_name=$(data).find("f_cust_name").text();
+						if (res=="ok")
+						{					   
+						   if   (confirm("推薦人為"+f_cust_name+f_sug_user_id2))
+							{
+								out = $('#close_act').val();								
+								ajax();
+							}
+						}
+						else
+						{
+							alert("推薦之會員編號不存在");							
+						}
+					});
+					
+				}
+				else
+				{
+					out = $('#close_act').val();
+					ajax();
+				}
+			}
+			else
+			{
+				$("#thanks").html("完成修改會員資料")
+				out="完成修改會員資料";
+				ajax();	
+			}
+			
+		}
+		return false;
+    });
+	$("#bnt8").submit( function() {
+      out = $('#bnt8').val(); 
+	  $("#box2").css('visibility','hidden');
+	  $("#box1").css('visibility','visible');           
+      return false;
+    });	
+	$("#bir_year").change(function()
+	{	
+		   get_birthday();
+		   
+	});
+	$("#bir_month").change(function()
+	{	
+		   get_birthday();
+		   
+	});
+	
+	$("#bir_day").change(function()
+	{	
+		   get_birthday();
+	});
+	function get_birthday()
+	{
+		yy=$('#bir_year').val();
+		mm=$('#bir_month').val();
+		dd=$('#bir_day').val();			
+		if(dd<10) {
+			dd='0'+dd
+		} 
+		if(mm<10) {
+			mm='0'+mm
+		} 
+		today = yy+"-"+mm+'-'+dd;			
+		$("#f_birthday2").val(today);			
+	}
+});
+
+function unLoad()
+{
+    alert("ttt");
+	window.opener.location.href = window.opener.location.href;
+}
+function choice(my_form)
+{
+//alert("ttttt");
+	sel_a[0]="  Email";
+	sel_a[1]="Line ID";
+	sel_a[2]="手機號碼";
+	for (var i=0; i<my_form.radio_sel.length; i++)
+	{
+	   if (my_form.radio_sel[i].checked)
+	   {		   
+		// var radio_value= my_form.radio_sel[i].value;
+			sel=i;
+			document.getElementById("type1").innerText=sel_a[i];
+			break;
+	   }
+	}       
+}
+function chk_read5()
+{
+	read5_flg="t";
+}
+</script>
+</head>
+<body   alink="#ffffff" link="#ffffff" vlink="#ffffff" style="font-family:微軟正黑體">
+<div id="box1">
+<!--	<div class=header>
+			<div class=logo>
+				<a href="index.htm"><img src="web3/1.png" width=195px></a>
+			</div>		
+	</div>
+	-->
+	<div id=block0>		
+		<br>
+		<br>
+		<table align="center" style="  border: 1px hidden; width: 450px" align="left" cellpadding="10" cellspacing="5" frame="border" rules="hsides">
+			<tr>
+				<td align="left">
+					<b>認證種類</b>
+				</td>
+				
+				<td align="left">
+				<form   NAME="my_form">
+					<INPUT TYPE="radio"  NAME="radio_sel" value="0" checked onClick="choice(this.form)">EMAIL認證 
+					<INPUT TYPE="radio"  NAME="radio_sel" value="1"         onClick="choice(this.form)">line ID認證
+					<INPUT TYPE="radio"  NAME="radio_sel" value="2"         onClick="choice(this.form)">手機認證<P>
+				</form>	
+				</td>
+			</tr>			
+			<form  method="post" NAME="my_form2">
+				<tr>
+				<td align="left">
+					<b id="type1">電子郵件</b>
+				</td>
+				
+				<td align="left">
+					<input type="text" name="帳號" size="30" id="f_user_id1"  style="font-size:16px">
+				</td>				
+				</tr>
+				<tr>
+				<td  align="left" >密碼:</font></td>
+					<td><input type=password id="f_passwd1" size=15 maxlength=18 style="font-size:16px" value=></td>
+				</tr>
+			</form>
+		</table>
+		<div id=text0>
+			<input type="button" id=out4 value="登入" class=fontstyle3 style="border:1px;background-color:#ffd87d;width:80px;height:30px">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" id=out5 value="註冊" class=fontstyle3 style="border:1px;background-color:#ccc;width:80px;height:30px">        
+			<input type="button" id=out3 value="修改會員資料" class=fontstyle3 style="position:absolute;border:1px;background-color:#ffd87d;width:140px;height:30px;left:25px">        
+			
+			<!--
+			<a href='javascript: void(0)' onclick="update()">
+				<font size="2">忘記密碼</font>
+			</a>
+			-->
+		</div>
+	</div>
+	<!--
+	<div id=block3>
+		<a href="#">╳ 關閉</a>
+	</div>
+	-->		
+</div>
+<div id="box2" >
+	<div id=step1>
+	<!--
+		<div class=header>
+			<div class=logo>
+				<a href="index.htm"><img src="web3/1.png" width=195px></a>			
+			</div>
+			-->
+		<div class=text  style="font-family:華康中圓體">
+			<font size="5px" color="#ffffff" class=func_name>| 會員註冊</font>
+		</div>
+		<div class=back>
+		</div>
+	</div>
+	<div class=block>
+		<img src="web3/2.png" width=450px>
+	</div>	
+	<div id=table1>
+			<table align="center" style="border: 1px solid rgb(182,182,182); height: 400px; width: 520px" align="left" cellpadding="10" cellspacing="5" frame="border" rules="none">
+			<tr>
+				<td>
+				</td>
+				<td>
+				</td>
+			</tr>
+			
+			<tr>
+				<th colspan="2" align="left">
+					<font color="#ff0000" size="2">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						(**必填 *擇一填)
+					</font>
+				</th>
+			</tr>
+		<tr>
+				<td align="center">
+					<font color="#ff0000">**</font>
+					電子郵件
+				</td>				
+				<td align="center">
+					<input type="email" name="電子郵件" size="20" id=f_email2>
+				</td>
+			</tr>			
+			<tr>
+				<td align="center">
+					<font color="#ff0000">*</font>
+					手機號碼</td>
+				
+				<td align="center">
+					<input type="text" name="手機號碼" size="20" id=f_celephone2 >
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="center">
+					<font color="#ff0000">*</font>
+					LINE ID&nbsp;&nbsp;</td>
+				
+				<td align="center">
+					<input type="text" name="LINE ID" size="20" id=f_line_id2>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					密碼
+				</td>
+				
+				<td align="center">
+					<input type="password" name="密碼" size="20" id=f_passwd2 placeholder="輸入8~20碼英數字">
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="center">
+					&nbsp;
+					確認密碼
+				</td>
+				
+				<td align="center">
+					<input type="password" name="確認密碼" size="20" id=f_passwd3>
+				</td>
+			</tr>				
+			
+			<tr>
+				<th colspan="2">
+				</th>
+			</tr>
+			
+			<tr >
+				<th colspan="2" align="center" >
+				<span id=agree1>
+					<input type="checkbox" value="agree" name="W" onclick="chk_read5()">
+					我已詳閱並同意
+					<a href="#" style="color:blue;">
+						《好利購服務條款》
+					</a>
+					</span>
+				</th>												
+			</tr>	
+
+			<tr>
+				<th colspan="2" align="center">
+					
+			<input type="button" value="回上一頁" id=prev_step1  style="border:3px;background-color:#ffd87d;width:80px;height:25px">&nbsp;&nbsp;
+			<input type="button" value="下一步" id=next_step1 style="border:3px;background-color:#ffd87d;width:70px;height:25px">
+		
+				</th>
+			</tr>	
+									
+		</table>						
+	</div>
+	
+	<div id=texttarea style="overflow: scroll; height:20vh; width: 520px">
+
+		<font style="background-color:#ccc;">
+			<b>好利購服務條款</b>
+		</font>
+		
+		<br>
+		
+		<font size="2">隱私權</font>
+		
+		<br>
+		
+		<font color="#636363" size="2">
+			歡迎您加入成為好利購會員，好利購會員服務(以下稱會員服務)係由『金永昕科技股份有限公司』(以下稱本公司)所建置提供，請詳細閱讀以下權益條款，本條款訂立的目的，是為了保護本公司以及會員的利益，並作為本公司與會員間會員服務提供權利義務關係之依據，當您完成相關基本資料(含姓名、身分證字號、電子郵件地址、聯絡電話、地址、出生日期、性別等資料)之提供並完成註冊手續，即正式成為本公司會員，並於開始使用本公司所提供之會員服務時，即視為已知悉及完全同意本條款的所有約定：
+			<br>
+			<br>
+			<b>壹、會員服務及權利義務</b>
+			<br>
+				1.	本公司於完成並確認您的會員資格後，本公司將提供會員服務內容有：七天送貨到府或到店自
+				取、七天商品鑑賞期(此鑑賞內只提供商品或服務之鑑賞參考，而非商品或服務的使用)、個人消
+				費記錄查詢，或其他未來可能新增之一般會員服務。為充分服務會員，會員同意本公司以信
+				函、寄交之型錄或透過郵件、通信網路等，不定期告知本公司及關係企業各項活動資訊及郵購
+				商品。
+			<br>
+				2.若您未滿二十歲，應於您的法定代理人閱讀、瞭解並同意本服務條款之所有內容及其後修改變
+				更後，方得註冊使用或繼續使用。當您使用或繼續使用本公司所提供之任一服務時，即表示您
+				的法定代理人已閱讀、瞭解並同意接受本服務條款之所有內容及其後修改變更。
+			<br>
+				3.	本公司提供會員服務之期間，係指您完成基本資料提供建檔並完成註冊程序後，本公司於完成
+				相關系統設定、使會員服務達於可供使用之日起，至會員向本公司請求刪除其全部個人資料而
+				經本公司同意終止服務之日止，或本公司因會員有違反本權益條款而為主動終止服務之日止。
+			<br>
+				4.	為取得會員資格需經完整正確之資料提供及註冊手續，並提供或填入完整、而且正確的資料。
+				如拒絕提供基本資料或未完成註冊，將無法享有會員服務。
+			<br>
+				5.	本公司提供之會員服務、功能以及其他一切因會員身分得享有之權益，均仍屬本公司或其他合
+				法權利人所有，會員除僅得於服務期間內依本條款之約定為使用外，均不得以任何方式將其轉
+				讓、移轉、出租或出借予其他任何第三人，會員就會員服務所為之任何轉讓、移轉、出租或出
+				借予其他任何第三人之行為，本公司將有權終止。
+			<br>
+				6.	會員服務僅依當時所提供之相關權益、功能及狀態提供服務；本公司保留新增、修改、取消
+				會員服務或系統功能之全部之權利，其新修正內容將適時公布於本網站，不另外個別通知會
+				員。會員並同意遵守新修正之條款。
+			<br>
+				7.	註冊會員資料時，可申請一組個人使用者帳號及專屬密碼，而使用會員服務的過程中，會員必
+				須為經由該帳號和密碼進行所有購物行為；另所有使用其帳號和密碼進入之行為，均視為該帳
+				號及密碼持有人之行為，會員應對該等行為負責。
+			<br>
+				8.	會員同意並瞭解本公司於各通路所刊播之任何廣告及促銷資訊，其性質屬「要約之引誘」，本公
+				司有權拒絕會員之要約。且會員同意並瞭解，本公司於各通路所刊播之任何廣告及促銷資訊有
+				所錯誤者，本公司將以適當方式為更正之通告，如會員要求本公司履行更正前之資訊內容者，
+				本公司有權拒絕之，會員不得向本公司為任何之請求。
+			<br>
+			<br>
+			<b>貳、拒絕或終止會員服務</b>
+			<br>
+				會員應嚴防其個人資料、付款資料（包含信用卡資料）、使用者帳號和密碼外洩。倘有外洩而遭
+				他人留用、冒用者，會員應自負法律責任。會員使用各項專屬權益時，請清楚告知會員帳號及
+				相關資料，若資料錯誤，本公司於會員之個人資料有受冒用而產生損失之風險時，為維護會員
+				權益，得停止會員服務。會員若有包括大量訂購惡意銷退、濫用本公司回饋機制、拒絕償還，
+				或違反會員服務之精神或本條款者，本公司均有權力終止及拒絕提供會員服務，您承認並同意
+				本公司依本條款任何規定對會員提供之服務，無需進行事先通知即得終止，且會員服務之終
+				止，本公司對會員或任何第三人均不承擔任何責任。
+			<br>
+			<br>
+			<b>參、智慧財產權</b>
+			<br>
+				本公司之網站及相關通路所使用之軟體或程式、網站上所有內容，包括但不限於著作、圖片、
+				檔案、資訊、資料、網站架構、網站畫面的安排、網頁設計，均由本公司或其他權利人依法擁
+				有其智慧財產權，包括但不限於商標權、專利權、著作權、營業秘密與專有技術等。任何人不
+				得逕自使用、修改、重製、公開播送、改作、散布、發行、公開發表、進行還原工程、解編或
+				反向組譯。若您欲引用或轉載前述軟體、程式或網站內容，必須依法取得本公司或其他權利人
+				的事前書面同意。同時會員必須遵守商標法、著作權法、電信法、個人資料保護法及其他相關
+				法令之規定，如有違反，您應對本公司負損害賠償責任（包括但不限於訴訟費用及律師費用
+				等）。
+			<br>
+			<br>
+			<b>肆、回饋金說明</b>
+			<br>
+				***
+			<br>
+			<br>
+			<b>伍、客戶資料收集說明</b>
+			<br>
+				依據法務部頒佈之「個人資料保護法之特定目的及個人資料之類別」，本公司蒐集、處理、利用
+				及保有您個人資料之種類列示如下：
+			<br>
+				1.	Ｃ○○一辨識個人者。(姓名、職稱、住址、工作地址、以前地址、住家電話號碼、行動電
+				話、網路平臺申請之帳號、通訊及戶籍地址、電子郵遞地址及其他任何可辨識資料本人者等。)
+			<br>
+				2.	Ｃ○○二辨識財務者。(例如：金融機構帳戶之號碼與姓名、信用卡或簽帳卡之號碼、保險單
+				號碼、個人之其他號碼或帳戶等。)
+			<br>
+				3.	Ｃ○○三政府資料中之辨識者。(例如：身分證統一編號、護照號碼等。)
+			<br>
+				4.	Ｃ○一一個人描述。(例如：年齡、性別、出生年月日、出生地、國籍、聲音等。)
+			<br>
+				5.	Ｃ○一二身體描述。(例如：身高、體重、血型等。)
+			<br>
+				6.	Ｃ○二一家庭情形。(例如：結婚有無、配偶或同居人之姓名、前配偶或同居人之姓名、結婚
+				之日期、子女之人數等。)
+			<br>
+				7.	Ｃ○二三家庭其他成員之細節。(例如：子女、受扶養人、家庭其他成員或親屬、父母等。)
+			<br>
+				8.	Ｃ○三一住家及設施。(如：住所地址)
+			<br>
+				9.	Ｃ○三三移民情形。(例如：護照)
+			<br>
+				10.	Ｃ○三四旅行及其他遷徙細節。(例如：旅行細節)
+			<br>
+				11.	Ｃ○三六生活格調。(例如：使用消費品之種類及服務之細節、個人或家庭之消費模式等。)
+			<br>
+				12.	Ｃ○三八職業。(例如：學校校長、民意代表或其他各種職業等。)
+			<br>
+				13.	Ｃ○八一收入、所得、資產與投資。
+			<br>
+				14.	Ｃ○九三財務交易。(例如：收付金額、信用額度、保證人、支付方式、往來紀錄、保證金或
+				其他擔保等。)
+			<br>
+				15.	Ｃ一○二約定或契約。(例如：關於交易、商業、法律或其他契約、代理等。)
+			<br>
+				16.	Ｃ一三二未分類之資料。(例如：無法歸類之信件、檔案、報告或電子郵件等。)
+				我們僅會在提供商品銷售、金融交易授權、物流配送、廣告行銷、市場分析、贈獎活動、會員
+				權益通知及相關服務時，為作業之必要運用您的個人資料。
+			<br>
+			<br>
+			<b>陸、準據法及管轄法院</b>
+			<br>
+				本服務條款之解釋與適用，以及與本服務條款有關之爭議，均應依照中華民國法律予以處理，
+				並以臺灣台中地方法院為第一審管轄法院。
+		</font>
+	</div>	
+	
+</div>		
+<div id=step2>
+<!--	
+	<div class=header>
+		<div class=logo>
+			<a href="index.htm"><img src="web3/1.png" width=195px></a>			
+		</div>
+		<div class=text  style="font-family:華康中圓體">
+			<font size="5px" color="#ffffff" class=func_name>
+				| 會員註冊
+			</font>
+			<div class=back>
+			</div>
+		</div>
+	</div>
+	-->
+	<div class=block>
+		<img src="web4/5.png" width=450px>
+	</div>
+	
+	<div id=table2>
+		<table align="center" style="border: 1px solid rgb(182,182,182); height: 400px; width: 620px" align="left" cellpadding="10" cellspacing="5" frame="border" rules="none">
+			
+			<tr>
+				<td align="left">	
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff0000">*</font>
+					姓名
+				</td>
+				
+				<td align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text"  size="20" id=f_user_name2 >
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="left">	
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					生日
+				</td>
+				
+				<td align="left">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<select name="西元年" id=bir_year >
+						<option value="西元年">西元年</option>
+						<option value="2017">2017</option>
+　						<option value="2016">2016</option>
+　						<option value="2015">2015</option>
+　						<option value="2014">2014</option>
+　						<option value="2013">2013</option>
+						<option value="2012">2012</option>
+						<option value="2011">2011</option>
+						<option value="2010">2010</option>
+						<option value="2009">2009</option>
+						<option value="2008">2008</option>
+						<option value="2007">2007</option>
+						<option value="2006">2006</option>
+						<option value="2005">2005</option>
+						<option value="2004">2004</option>
+						<option value="2003">2003</option>
+						<option value="2002">2002</option>
+						<option value="2001">2001</option>
+						<option value="2000">2000</option>
+						<option value="1999">1999</option>
+						<option value="1998">1998</option>
+						<option value="1997">1997</option>
+						<option value="1996">1996</option>
+						<option value="1995">1995</option>
+						<option value="1994">1994</option>
+						<option value="1993">1993</option>
+						<option value="1992">1992</option>
+						<option value="1991">1991</option>
+						<option value="1990">1990</option>
+						<option value="1989">1989</option>
+						<option value="1988">1988</option>
+						<option value="1987">1987</option>
+						<option value="1986">1986</option>
+						<option value="1985">1985</option>
+						<option value="1984">1984</option>
+						<option value="1983">1983</option>
+						<option value="1982">1982</option>
+						<option value="1981">1981</option>
+						<option value="1980">1980</option>
+						<option value="1979">1979</option>
+						<option value="1978">1978</option>
+						<option value="1977">1977</option>
+						<option value="1976">1976</option>
+						<option value="1975">1975</option>
+						<option value="1974">1974</option>
+						<option value="1973">1973</option>
+						<option value="1972">1972</option>
+						<option value="1971">1971</option>
+						<option value="1970">1970</option>							
+						<option value="1969">1969</option>
+						<option value="1968">1968</option>
+						<option value="1967">1967</option>
+						<option value="1966">1966</option>
+						<option value="1965">1965</option>
+						<option value="1964">1964</option>
+						<option value="1963">1963</option>
+						<option value="1962">1962</option>
+						<option value="1961">1961</option>
+						<option value="1960">1960</option>
+						<option value="1959">1959</option>
+						<option value="1958">1958</option>
+						<option value="1957">1957</option>
+						<option value="1956">1956</option>
+						<option value="1955">1955</option>
+						<option value="1954">1954</option>
+						<option value="1953">1953</option>
+						<option value="1952">1952</option>
+						<option value="1951">1951</option>
+						<option value="1950">1950</option>
+						<option value="1949">1949</option>
+						<option value="1948">1948</option>
+						<option value="1947">1947</option>							
+						<option value="1946">1946</option>
+						<option value="1945">1945</option>
+						<option value="1944">1944</option>
+						<option value="1943">1943</option>
+						<option value="1942">1942</option>
+						<option value="1941">1941</option>
+						<option value="1940">1940</option>
+						<option value="1939">1939</option>
+						<option value="1938">1938</option>
+						<option value="1937">1937</option>
+						<option value="1936">1936</option>
+						<option value="1935">1935</option>
+						<option value="1934">1934</option>
+						<option value="1933">1933</option>
+						<option value="1932">1932</option>
+						<option value="1931">1931</option>
+						</select>
+					
+					<select name="請選擇月份" id=bir_month >
+						<option value="月份">月份</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						</select>
+					
+					<select name="請選擇日期" id=bir_day  >
+						<option value="日期">日期</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+					</select>
+				    <input type="date"  size=8 id=f_birthday2  value="" hidden>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="left">	
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					連絡電話
+				</td>
+				
+				<td align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="連絡電話" size="20" id=f_tel2>
+				</td>
+			</tr>
+		
+			<tr>
+				<td align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					地址
+				</td>
+				
+				<td align="left">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="地址" size="35" id=f_address2>
+				</td>
+			</tr>	
+			<tr> 
+					
+						
+				<td align="left">
+				   <span id=sugest1>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					推薦人會員編號
+					</span>
+				</td>				
+				<td align="left">
+				   <span id=sugest2>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" name="推薦人" size="20"  id=f_sug_user_id2 >
+					<font size="2">
+						&nbsp;(非必填)
+					</font>
+					   </span >
+				</td>					
+				
+			</tr>
+			
+			<tr>
+				<th colspan="2">
+					<input type="button" value="回上一頁" id=prev_step2  style="border:3px;background-color:#ffd87d;width:80px;height:25px">
+					&nbsp;&nbsp;
+						<input type="button" value="送出" id=close_act style="border:3px;background-color:#ffd87d;width:100px;height:25px">
+					&nbsp;&nbsp;
+				</th>
+			</tr>
+			
+											
+		</table>						
+	</div>
+	
+	</div>
+	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	
+<!--	
+	<hr align="center" color="#ccc" width="700" size="0.5">
+	<div id=a>
+		<font color="#ccc" size="2">
+			<a href="#" style="color:gray;">公司介紹  </a>|
+			<a href="#" style="color:gray;">招商資訊  </a>|
+			<a href="#" style="color:gray;">會員中心  </a>|
+			<a href="#" style="color:gray;">聯絡我們  </a>
+		</font>
+	</div>
+</div>
+-->		
+<div id=step3>
+	<!--
+	<div class=header>
+	
+		<div class=logo>
+			<a href="index.htm"><img src="web3/1.png" width=195px></a>			
+		</div>
+		<div class=text  style="font-family:華康中圓體">
+			<font size="5px" color="#ffffff" class=func_name>
+				| 會員註冊
+			</font>			
+		</div>
+		<div class=back>
+		</div>
+	</div>
+	-->
+	<div class=block>
+		<img src="web5/3.png" width=450px>
+	</div>
+	
+	
+	<div id=table3>
+		<table align="center" style="border: 1px solid rgb(182,182,182); height: 370px; width: 450px" align="left" cellpadding="1" cellspacing="1" frame="border" rules="none">
+			<tr>
+				<td align="center">
+					<img src="web5/4.png" width=120>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<span   style="color:#ff0000;font-size:20px">您的會員編號：</span><br><span id=f_cust_id  style="color:0000b3;font-size:24px"></span>
+				</td>
+			</tr>
+			<tr>
+			</tr>
+			<tr>
+				<td align="center">
+					<font color="#ff0000">
+						<b id=thanks>謝謝您的註冊</b>
+					</font>
+					
+					<br>
+					<b>現在您可以開始購物了！</b>
+				</td>
+			</tr>
+
+			<tr>
+				<th align="center">
+					<input type="button" value="回認證首頁" id="next_step3" style="border:3px;background-color:#ffd87d;width:90px;height:25px">
+				</th>
+			</tr>										
+		</table>						
+	</div>
+	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br>
+
+<!--	
+	<hr align="center" color="#ccc" width="700" size="0.5">
+	<div id=a>
+		<font color="#ccc" size="2">
+			<a href="#" style="color:gray;">公司介紹  </a>|
+			<a href="#" style="color:gray;">招商資訊  </a>|
+			<a href="#" style="color:gray;">會員中心  </a>|
+			<a href="#" style="color:gray;">聯絡我們  </a>
+		</font>
+	</div>	
+</div>
+-->
+</body>
+</html>
